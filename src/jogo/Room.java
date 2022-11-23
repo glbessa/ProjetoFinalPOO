@@ -22,7 +22,6 @@ import personagens.Personagem;
 
 public class Room 
 {
-    private String description;
     private HashMap<String, Room> exits;      // stores exits of this room.
     private HashMap<String, Personagem> personagens;
     
@@ -32,9 +31,8 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room() 
     {
-        this.description = description;
         exits = new HashMap<String, Room>();
         personagens = new HashMap<String, Personagem>();
     }
@@ -53,23 +51,13 @@ public class Room
      * @return The short description of the room
      * (the one that was defined in the constructor).
      */
-    public String getShortDescription()
-    {
-        return description;
-    }
-
+  
     /**
      * Return a description of the room in the form:
      *     You are in the kitchen.
      *     Exits: north west
      * @return A long description of this room
      */
-    public String getLongDescription()
-    {
-        return "You are " + description + ".\n"
-               + getExitString() + "\n"
-               + pegaPersonagens();
-    }
 
     /**
      * Return a string describing the room's exits, for example

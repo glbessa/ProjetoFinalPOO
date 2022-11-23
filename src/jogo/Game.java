@@ -42,36 +42,72 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
+        Room outside, mainEntrance, lobby, armorRoom, dungeon, library, bossRoom, hallwayToArmorRoom, hallwayToBoss, hallwayToLibrary;
       
-        // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        // initialise room exits
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+     
+        outside = new Room();
+        mainEntrance = new Room();
+        armorRoom = new Room();
+        dungeon = new Room();
+        library = new Room();
+        bossRoom = new Room();
+        lobby = new Room();
+        hallwayToArmorRoom = new Room();
+        hallwayToLibrary = new Room();
+        hallwayToBoss = new Room();
 
-        theatre.setExit("west", outside);
+        outside.setExit("west", mainEntrance);
 
-        pub.setExit("east", outside);
+        mainEntrance.setExit("east", outside);
+        mainEntrance.setExit("south", lobby);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-        Personagem capanga1 = new Vilao("Capanga1", 2);
-        Personagem capanga2 = new Vilao("Capanga2", 2);
-        lab.inserirPersonagem(capanga1);
-        lab.inserirPersonagem(capanga2);
-        
-        office.setExit("west", lab);
-        Personagem coringa = new Vilao("Coringa", 5);
-        office.inserirPersonagem(coringa);
+        lobby.setExit("east", hallwayToLibrary);
+        lobby.setExit("west", hallwayToArmorRoom);
+        lobby.setExit("south", hallwayToBoss);
+        lobby.setExit("north", mainEntrance);
 
-        currentRoom = outside;  // start game outside
+        hallwayToArmorRoom.setExit("east", lobby);
+        hallwayToArmorRoom.setExit("west", armorRoom);
+        hallwayToLibrary.setExit("west", lobby);
+        hallwayToLibrary.setExit("east", library);
+        hallwayToBoss.setExit("east", bossRoom);
+        hallwayToBoss.setExit("north", lobby);
+
+        library.setExit("west", hallwayToLibrary);
+        armorRoom.setExit("east", hallwayToArmorRoom);
+        armorRoom.setExit("south", dungeon);
+        dungeon.setExit("north", armorRoom);
+
+        Personagem diabinho = new Vilao("Diabinho", 2);
+        Personagem olhoDoMal = new Vilao("Olhão do Mal", 2);
+        Personagem assassino = new Vilao("Assasino", 2);
+        Personagem fantasmaCaolho = new Vilao("Fantasma Caolho", 2);
+        Personagem cavaleiro = new Vilao("Cavaleiro Demoníaco", 2);
+        Personagem michaelMyers = new Vilao("Michael Myers", 2);
+        Personagem capanga1 = new Vilao("Diabinho Capanga 1", 2);
+        Personagem capanga2 = new Vilao("Diabinho Capanga 2", 2);
+        Personagem capanga3 = new Vilao("Diabinho Capanga 3", 2);
+        Personagem diabao = new Vilao("Diabão", 2);
+
+
+        mainEntrance.inserirPersonagem(diabinho);
+
+        lobby.inserirPersonagem(assassino);
+        lobby.inserirPersonagem(olhoDoMal);
+
+        library.inserirPersonagem(fantasmaCaolho);
+
+        armorRoom.inserirPersonagem(cavaleiro);
+
+        dungeon.inserirPersonagem(michaelMyers);
+
+        bossRoom.inserirPersonagem(diabao);
+        bossRoom.inserirPersonagem(capanga1);
+        bossRoom.inserirPersonagem(capanga2);
+        bossRoom.inserirPersonagem(capanga3);
+     
+
+        currentRoom = outside;  // Começa o jogo fora da mansão
     }
 
     /**
@@ -102,7 +138,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        // System.out.println(currentRoom.getLongDescription());
     }
 
     /**
@@ -178,7 +214,7 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            // System.out.println(currentRoom.getLongDescription());
         }
     }
 
@@ -201,7 +237,7 @@ public class Game
     private void look()
     {
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        // System.out.println(currentRoom.getLongDescription());
     }
     
     private void attack(Command command) {

@@ -78,7 +78,7 @@ public class PainelDaSala extends JPanel {
 	}
 	
 	public void atualizar() {
-		descricao.setText("You are " + sala.getShortDescription());
+		// descricao.setText("You are " + sala.getShortDescription());
 		
 		((DefaultListModel) inimigos.getModel()).removeAllElements();
 		for (String nome : sala.pegaConjuntoDePersonagens()) {

@@ -1,5 +1,8 @@
 package itens;
 
-public class Pocao {
+public class Pocao extends Item implements Consumivel 
+{
+	private int vidaRegeneravel;
+	
 	
 }

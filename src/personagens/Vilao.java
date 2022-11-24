@@ -1,6 +1,7 @@
 package personagens;
 
-public class Vilao extends Personagem {
+public class Vilao extends Personagem 
+{
 	private static final int energiaMaxima = 7;
 
 	public Vilao(String nome, int energia) {

@@ -5,13 +5,14 @@ import java.util.Map;
 import itens.*;
 
 public class Heroi extends Personagem {
-	private int energiaMaxima;
+	private Arma armaEquipada;
+	private int vidaMaxima;
 	private int limiteDePeso;
 	private Map<String, Item> mochila;
 	
-	public Heroi(String nome, int energia, int energiaMaxima, int limiteDePeso) {
-		super(nome, energia);
-		this.energiaMaxima = energiaMaxima;
+	public Heroi(String nome, int vida, int vidaMaxima, int limiteDePeso) {
+		super(nome, vida);
+		this vidaMaxima = vidaMaxima;
 		this.limiteDePeso = limiteDePeso;
 		mochila = new HashMap();
 	}
@@ -51,15 +52,20 @@ public class Heroi extends Personagem {
 		int dadoDoOponente = sorte(6);
 		
 		if (dadoDoHeroi == dadoDoOponente) {
-			decremento(); // Na energia do proprio heroi
+			decremento(); // Na vida do proprio heroi
 			oponente.decremento();
 		} else if (dadoDoHeroi > dadoDoOponente) {
-			incremento(); // Na energia do proprio heroi
+			incremento(); // Na vida do proprio heroi
 			oponente.decremento();
 		} else { // Quando o oponente vence
-			decremento(); // Na energia do proprio heroi
+			decremento(); // Na vida do proprio heroi
 			oponente.incremento();
 		}
+	}
+
+	public void equiparItem(Item equipamento)
+	{
+
 	}
 	
 	public void imprimir() {
@@ -68,7 +74,7 @@ public class Heroi extends Personagem {
 		super.imprimir();
 	}
 	
-	public int pegaEnergiaMaxima() {
-		return energiaMaxima;
+	public int peg vidaMaxima() {
+		return vidaMaxima;
 	}
 }

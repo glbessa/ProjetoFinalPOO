@@ -1,11 +1,9 @@
 package personagens;
 
-public class SimuladorDeBatalha {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+public class SimuladorDeBatalha 
+{
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 		int round = 1;
 		

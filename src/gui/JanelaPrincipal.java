@@ -13,14 +13,10 @@ import personagens.Heroi;
 import personagens.Personagem;
 import personagens.Vilao;
 
-import jogo.Command;
-import jogo.CommandWord;
 import jogo.Game;
-import jogo.Parser;
 import jogo.Room;
 
 public class JanelaPrincipal extends JFrame implements ActionListener{
-	private Parser parser;
     private Room currentRoom;
     private Heroi heroi;
     
@@ -41,12 +37,8 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
      */
     public JanelaPrincipal() 
     {
-    	// Definicoes originais da Classe Game
         createRooms();
-        parser = new Parser();
         heroi = new Heroi("Batman", 8, 10, 100);
-        
-        // Chamada do metodo que vai construir a janela principal
         initGUI();
     }
 

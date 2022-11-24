@@ -28,7 +28,8 @@ public class PainelDaSala extends JPanel {
 	private JList itens;
 	private PainelDoInimigo pInimigo;
 	
-	public PainelDaSala(Room sala) {
+	public PainelDaSala(Room sala) 
+	{
 		this.sala = sala;
 		inimigoSelecionado = null;
 		

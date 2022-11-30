@@ -3,11 +3,16 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.GridBagLayout;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import personagens.Heroi;
 import personagens.Personagem;
@@ -25,8 +30,11 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     private Heroi heroi;
     
     // Atributos de componetes da GUI
-	private PainelDoHeroi painelHeroi;
+	private PainelDoHeroi pHeroi;
+    private PainelDoInimigo pVidaInimigos;
 	private PainelDaSala painelSala;
+    // private PainelItensSala painelSala;
+    private PainelDaSala pRoom;
 	private JTextArea console;
 	private JButton bAtacar; 
 	private JButton bPegar; 
@@ -44,10 +52,11 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     	// Definicoes originais da Classe Game
         createRooms();
         parser = new Parser();
-        heroi = new Heroi("Batman", 8, 10, 100);
+        heroi = new Heroi("Cristopher", 8, 10, 100);
         
         // Chamada do metodo que vai construir a janela principal
         initGUI();
+        
     }
 
     /**
@@ -129,10 +138,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     // Remover!
     public void play() 
     {            
-        printWelcome();
-
-        // Enter the main command loop.  Here we repeatedly read commands and
-        // execute them until the game is over.
                 
         boolean finished = false;
         while (! finished) {
@@ -142,28 +147,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         System.out.println("Thank you for playing.  Good bye.");
     }
 
-    /**
-     * Print out the opening message for the player.
-     */
-    private void printWelcome()
-    {
-    	//*
-    	console.append("\n");
-    	console.append("Welcome to the World of Zuul!\n");
-    	console.append("World of Zuul is a new, incredibly boring adventure game.\n");
-    	console.append("\n");
-    	console.append("\n\n");
-    	painelSala.atualizar();
-    	painelHeroi.atualizar();
-    	//*/
-    }
-
-    /**
-     * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
-    // Remover!
     private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
@@ -234,8 +217,8 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         }
         else {
             currentRoom = nextRoom;
-            //System.out.println(currentRoom.getLongDescription());
             painelSala.mudarDeSala(currentRoom);
+            // painelSala.mudarDeSala(currentRoom);
         }
         //*/
     }
@@ -275,7 +258,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     	oponente = currentRoom.pegaPersonagem(command.getSecondWord());
     	if (oponente != null) {
     		heroi.lutar(oponente);
-    		painelHeroi.atualizar();
+    		pHeroi.atualizar();
     		painelSala.atualizarInimigo();
     	} else {
     		console.append("\nThe character '"+ command.getSecondWord() +"' is not in the current room.\n");
@@ -288,8 +271,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     // ******************************************************
 	
     public void initGUI() {
-    	// Caracteristicas da Janela Principal ############################################
-        setTitle("Caverna do Dragao");
+    	setTitle("Caverna do Dragao");
         setSize(1024, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -302,7 +284,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         add(painelEsq);
         add(painelDir);
         painelEsq.setBackground(new Color(255, 0, 0));
-        painelDir.setBackground(new Color(0, 0, 255));
+        painelDir.setBackground(Color.white);
         painelEsq.setVisible(true);
         painelDir.setVisible(true);
         //*/
@@ -315,26 +297,18 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         //*/
         
         // Construcao do painel da direita ##################################################
-        painelDir.setLayout(new GridLayout(4,0));
+        painelDir.setLayout(new GridLayout(3,0));
         
-        // Painel do Heroi ------------------------------------------------------------------
-        //*
-        painelHeroi = new PainelDoHeroi(heroi);
-        painelDir.add(painelHeroi);
-        //*/
-        
-		// Painel da Sala -------------------------------------------------------------------
-		//*
+       
         painelSala = new PainelDaSala(currentRoom);
-		painelDir.add(painelSala);
-		//*/
-        
-        // Painel com a caixa de texto ------------------------------------------------------
-        //*
-        console = new JTextArea();
-        console.setEditable(false);
-        painelDir.add(new JScrollPane(console));
+        painelDir.add(painelSala);
         //*/
+
+        // pVidaInimigos = new PainelDoInimigo();
+        // painelDir.add(pVidaInimigos);
+
+        pHeroi = new PainelDoHeroi(heroi);
+        painelDir.add(pHeroi);
         
         // Painel com os botoes -------------------------------------------------------------
         //*
@@ -375,8 +349,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		// Adicao do painel de botes no painel principal da direita
 		painelDir.add(painelDosBotoes);
 		//*/
-        
-		printWelcome();
     }
 
 	@Override

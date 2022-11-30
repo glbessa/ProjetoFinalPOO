@@ -16,16 +16,19 @@ public class PainelDoHeroi extends JPanel{
 	// Componentes da GUI
 	private JLabel nome;
 	private JLabel energia;
+	private JLabel titulo;
 
 	public PainelDoHeroi(Heroi heroi) {
 		this.heroi = heroi;
 		
-		setBackground(new Color(0, 255, 0));
+		setBackground(Color.white);
 		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		// Label com o nome do Heroi
+		titulo = new JLabel("============================================Painel do Herói============================================");
 		nome = new JLabel("Nome: ");
 		energia = new JLabel("Energia: ");
+		add(titulo);
 		add(nome);
 		add(energia);
 	}

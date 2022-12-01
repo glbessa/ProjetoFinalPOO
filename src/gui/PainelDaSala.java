@@ -16,19 +16,20 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import personagens.Heroi;
-import jogo.Room;
+import jogo.Sala;
 
 public class PainelDaSala extends JPanel {
-	// Objetos do Jogos
-	private Room sala;
+	private Sala sala;
 	private String inimigoSelecionado;
-	// Componentes da GUI
+	private String itemSelecionado;
+	
 	private JLabel descricao;
 	private JList inimigos;
 	private JList itens;
 	private PainelDoInimigo pInimigo;
+	//private PainelDeItensSala pItens; ver depois
 	
-	public PainelDaSala(Room sala) 
+	public PainelDaSala(Sala sala) 
 	{
 		this.sala = sala;
 		inimigoSelecionado = null;
@@ -36,37 +37,33 @@ public class PainelDaSala extends JPanel {
 		setBackground(Color.white);
 		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		//setLayout(new GridLayout(3, 0));
 		
-		// Label com a descricao da sala
-		descricao = new JLabel("Você está na Frente da Mansão");
-	
-		
-		// Painel com listas de Heroi e Itens
+		descricao = new JLabel(sala.pegarDescricao());
 		add(descricao);
+
 		JPanel painelListas = new JPanel();
 		painelListas.setLayout(new GridLayout(3, 2));
-		
 		painelListas.add(new JLabel("Inimigos"));
 		painelListas.add(new JLabel("Itens"));
 
-		//String[] list = {"teste1", "teste2", "teste3", "teste4", "teste5"};
+		
 		inimigos = new JList();
 		inimigos.setModel(new DefaultListModel());
 		inimigos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		inimigos.setLayoutOrientation(JList.VERTICAL);
 		inimigos.setVisibleRowCount(-1);
 		inimigos.addListSelectionListener(new InimigosSelectionHandler());
-		JScrollPane pHerois = new JScrollPane(inimigos);
-		painelListas.add(pHerois);
+		JScrollPane pInimigos = new JScrollPane(inimigos);
+		painelListas.add(pInimigos);
 		
 		itens = new JList();
 		itens.setModel(new DefaultListModel());
 		itens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		itens.setLayoutOrientation(JList.VERTICAL);
 		itens.setVisibleRowCount(-1);
-		JScrollPane pSalas = new JScrollPane(itens);
-		painelListas.add(pSalas);
+		inimigos.addListSelectionListener(new ItensSelectionHandler());
+		JScrollPane pItens = new JScrollPane(itens);
+		painelListas.add(pItens);
 		
 		add(painelListas);
 		
@@ -74,44 +71,80 @@ public class PainelDaSala extends JPanel {
 		add(pInimigo);
 	}
 	
-	public void mudarDeSala(Room novaSala) {
+	public void mudarDeSala(Sala novaSala) 
+	{
 		sala = novaSala;
 		atualizar();
 	}
 	
-	public void atualizar() {
-		descricao.setText("Você está " + sala.getDescription());
+	public void atualizar() 
+	{
+		descricao.setText("Você está " + sala.pegarDescricao());
 		
 		((DefaultListModel) inimigos.getModel()).removeAllElements();
-		for (String nome : sala.pegaConjuntoDePersonagens()) {
+		for (String nome : sala.pegarPersonagens()) 
+		{
 			((DefaultListModel) inimigos.getModel()).addElement(nome);
 		}
 		
 		((DefaultListModel) itens.getModel()).removeAllElements();
-	}
-
-	public void atualizarInimigo() {
-		if (inimigoSelecionado == null) {
-			pInimigo.limpar();
-		} else {
-			pInimigo.atualizar(sala.pegaPersonagem(inimigoSelecionado));
+		for (String nome : sala.pegarItens())
+		{
+			((DefaultListModel) itens.getModel()).addElement(nome);
 		}
 	}
-	
-	public String pegaInimigoSelecionado() {
+
+	public void atualizarInimigo() 
+	{
+		if (inimigoSelecionado == null) 
+		{
+			pInimigo.limpar();
+		} 
+		else 
+		{
+			pInimigo.atualizar(sala.pegarPersonagem(inimigoSelecionado));
+		}
+	}
+
+	public String pegarInimigoSelecionado() 
+	{
 		return inimigoSelecionado;
+	}
+
+	public String pegarItemSelecionado()
+	{
+		return itemSelecionado;
 	}
 	
 	// Classe que implementa o Listener para tratar das selecoes na lista de inimigos
-	class InimigosSelectionHandler implements ListSelectionListener {
-		public void valueChanged(ListSelectionEvent e) { 
-			if (inimigos.isSelectionEmpty()) {
+	class InimigosSelectionHandler implements ListSelectionListener 
+	{
+		public void valueChanged(ListSelectionEvent e) 
+		{ 
+			if (inimigos.isSelectionEmpty()) 
+			{
 				inimigoSelecionado = null;
-			} else {
-				//System.out.println((String) inimigos.getSelectedValue());
+			}
+			else 
+			{
 				inimigoSelecionado = (String) inimigos.getSelectedValue();
 			}
 			atualizarInimigo();
+		}
+	}
+
+	class ItensSelectionHandler implements ListSelectionListener 
+	{
+		public void valueChanged(ListSelectionEvent e) 
+		{ 
+			if (inimigos.isSelectionEmpty()) 
+			{
+				itemSelecionado = null;
+			} 
+			else 
+			{
+				itemSelecionado = (String) itens.getSelectedValue();
+			}
 		}
 	}
 }

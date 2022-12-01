@@ -8,14 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import personagens.Heroi;
-import jogo.Room;
+import jogo.Sala;
 
 public class PainelDoHeroi extends JPanel{
 	// Objetos do Jogos
 	private Heroi heroi;
 	// Componentes da GUI
 	private JLabel nome;
-	private JLabel energia;
+	private JLabel vida;
 	private JLabel titulo;
 
 	public PainelDoHeroi(Heroi heroi) {
@@ -27,14 +27,14 @@ public class PainelDoHeroi extends JPanel{
 		// Label com o nome do Heroi
 		titulo = new JLabel("============================================Painel do Herói============================================");
 		nome = new JLabel("Nome: ");
-		energia = new JLabel("Energia: ");
+		vida = new JLabel("Vida: ");
 		add(titulo);
 		add(nome);
-		add(energia);
+		add(vida);
 	}
 	
 	public void atualizar() {
-		nome.setText("Nome: " + heroi.pegaNome());
-		energia.setText("Energia: " + heroi.pegaEnergia() + " / " + heroi.pegaEnergiaMaxima());
+		nome.setText("Nome: " + heroi.pegarNome());
+		vida.setText("Vida: " + heroi.pegarVida() + " / " + heroi.pegarVidaMaxima());
 	}
 }

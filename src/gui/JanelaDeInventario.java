@@ -6,13 +6,28 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import itens.*;
+import jogo.*;
+import personagens.*;
 
 public class JanelaDeInventario extends JFrame implements ActionListener
 {
 	private JPanel painelPrincipal;
-	private JPanel botoes;
+	private JPanel painelBotoes;
 	private JButton bUsar;
 	private JButton bTirar;
 	private JButton bSair;
@@ -21,19 +36,21 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private String itemSelecionado;
 	private Inventario inventario;
 
-	private JScrollPane pItems;
+	private JScrollPane pItens;
 
-	public void initGUI() 
+	public void inicializar(Inventario inventario) 
 	{
         setTitle("Invertário");
         setSize(450, 300);
         setLocationRelativeTo(null);
         setLayout(new GridLayout());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
         
+		this.inventario = inventario;
 
         painelPrincipal = new JPanel();
         add(painelPrincipal);
-        painelPrincipal.setBackground(new Color(0, 0, 255));
+        painelPrincipal.setBackground(new Color(255, 255, 255));
         painelPrincipal.setVisible(true);
 
 		listaDeInventario = new JList();
@@ -43,50 +60,48 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		listaDeInventario.setVisibleRowCount(-1);
 		listaDeInventario.addListSelectionListener(new ListaDeInventarioSelectionHandler());
 
-		pItems = new JScrollPane(listaDeInventario);
-		painelPrincipal.add(pItems);
+		pItens = new JScrollPane(listaDeInventario);
+		painelPrincipal.add(pItens);
 
 
-		botoes = new JPanel();
-		botoes.setLayout(new GridLayout(3,0));
-		botoes.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+		painelBotoes = new JPanel();
+		painelBotoes.setLayout(new GridLayout(3,0));
 		
 		bUsar = new JButton("Usar");
 		bUsar.addActionListener(this);
-		botoes.add(bUsar);
+		painelBotoes.add(bUsar);
 
 		bTirar = new JButton("Tirar");
 		bTirar.addActionListener(this);
-		botoes.add(bTirar);
+		painelBotoes.add(bTirar);
 
 		bSair = new JButton("Sair");
 		bSair.addActionListener(this);
-		botoes.add(bSair);
+		painelBotoes.add(bSair);
 		
-		painelPrincipal.add(botoes);
+		painelPrincipal.add(painelBotoes);
+
+		atualizar();
     }
 
 	@Override
 	public void actionPerformed(ActionEvent ae) 
 	{
-		switch(ae.getSource())
+		if (ae.getSource() == bUsar)
 		{
-			case bUsar:
-				Item item = inverntario.pegarItem();
-				if (item instanceof Equipamento)
-					if 
-				else
 
-				
-				break;
-			case bTirar:
+		}
+		else if (ae.getSource() == bTirar)
+		{
+			if (itemSelecionado != null)
+			{
 				inventario.removerItem(itemSelecionado);
-				break;
-			case bSair:
-				
-				break;
-			default:
-				break;
+				atualizar();
+			}
+		}
+		else if (ae.getSource() == bSair)
+		{
+			dispose();
 		}
 	}
 
@@ -94,7 +109,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	{
 		((DefaultListModel) listaDeInventario.getModel()).removeAllElements();
 
-		for (String nome : inventario.pegarNomesDosItens()) 
+		for (String nome : inventario.pegarNomes())
 			((DefaultListModel) listaDeInventario.getModel()).addElement(nome);
 	}
 
@@ -102,10 +117,10 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	{
 		public void valueChanged(ListSelectionEvent e) 
 		{ 
-			if (itens.isSelectionEmpty()) 
+			if (listaDeInventario.isSelectionEmpty()) 
 				itemSelecionado = null;
 			else
-				itemSelecionado = (String) itens.getSelectedValue();
+				itemSelecionado = (String) listaDeInventario.getSelectedValue();
 		}
 	}
 }

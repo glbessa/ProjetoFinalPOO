@@ -2,35 +2,39 @@ package itens;
 
 abstract class Equipamento extends Item implements Desgastavel
 {
-	private int bonus;
 	private int durabilidade;
 
-	public Equipamento(String nome, String descricao, int peso, int bonus)
+	public Equipamento(String nome, String descricao, int peso)
 	{
 		super(nome, descricao, peso);
-		this.bonus = bonus;
 		this.durabilidade = 100;
 	}
 
 	public void desgartar(int desgaste)
 	{
-		if ((durabilidade + desgaste) <= 100 && (durabilidade + desgaste) >= 0)
+		int novaDurabilidade = durabilidade - desgaste;
+		if (novaDurabilidade > 0)
 			durabilidade -= desgaste;
+		else
+			durabilidade = 0;
 	}
 
 	public void consertar(int conserto)
 	{
-		if ((durabilidade + conserto) >= 0 && (durabilidade + conserto) <= 100)
+		int novaDurabilidade = (durabilidade + conserto);
+		if (novaDurabilidade <= 100)
 			durabilidade += conserto;
+		else
+			durabilidade = 100;
+	}
+
+	public boolean temDurabilidade()
+	{
+		return durabilidade != 0;
 	}
 
 	public int pegarDurabilidade()
 	{
 		return durabilidade;
-	}
-
-	public int pegarBonus()
-	{
-		return Math.round(bonus * durabilidade / 100);
 	}
 }

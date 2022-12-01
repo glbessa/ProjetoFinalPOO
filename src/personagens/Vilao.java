@@ -2,19 +2,8 @@ package personagens;
 
 public class Vilao extends Personagem 
 {
-	private static final int energiaMaxima = 7;
-
-	public Vilao(String nome, int energia) {
-		super(nome, energia);
-	}
-	
-	public int pegaEnergiaMaxima() {
-		return energiaMaxima;
-	}
-	
-	public void imprimir() {
-		System.out.println("#####################");
-		System.out.println("# Dados do Vilao");
-		super.imprimir();
+	public Vilao(String nome, int vida, int vidaMaxima, int ataque, int defesa) 
+	{
+		super(nome, vida, vidaMaxima, ataque, defesa);
 	}
 }

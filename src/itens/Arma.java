@@ -4,8 +4,19 @@ import java.lang.Math;
 
 public class Arma extends Equipamento
 {
-	public Arma(String nome, String descricao, int peso, int bonus)
+	private int dano;
+
+	public Arma(String nome, String descricao, int peso, int dano)
 	{
-		super(nome, descricao, peso, bonus);
+		super(nome, descricao, peso);
+
+		this.dano = dano;
+	}
+
+	public int pegarDano()
+	{
+		if (this.temDurabilidade())
+			return dano;
+		return 0;
 	}
 }

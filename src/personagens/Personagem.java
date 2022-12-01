@@ -2,20 +2,25 @@ package personagens;
 
 import java.util.Random;
 
-public abstract class Personagem {
+public abstract class Personagem 
+{
 	private String nome;
-	private int vida;
+	protected int vida;
 	private int vidaMaxima;
-	private int ataque;
-	private int defesa;
+	protected int ataque;
+	protected int defesa;
 	
 	public Personagem(String nome, int vida, int vidaMaxima, int ataque, int defesa) 
 	{
 		this.nome = nome;
 		this.vida = vida;
+		this.vidaMaxima = vidaMaxima;
+		this.ataque = ataque;
+		this.defesa = defesa;
 	}
 	
-	public String pegarNome() {
+	public String pegarNome() 
+	{
 		return nome;
 	}
 	
@@ -47,44 +52,33 @@ public abstract class Personagem {
 	public void atacar(Personagem oponente)
 	{
 		Random gerador = new Random();
-		int dado1 = gerador.nextInt(6);
-		int dado2 = gerador.nextInt(6);
+		int dado1 = gerador.nextInt(10);
+		int dado2 = gerador.nextInt(10);
 
 		
 		if (dado1 > dado2)
 		{
-			oponente.defender((dado1 - dado2) * ataque);
+			oponente.defender((dado1) * ataque);
 		}
-		else if (dado1 < dado2)
+		else
 		{
-			this.defender((dado1 - dado2) * oponente.pegarAtaque())
+			this.defender((dado2) * oponente.pegarAtaque());
 		}
-
-
 	}
 
 	public void defender(int dano)
 	{
-
+		int danoTotal = dano - defesa;
+		int vidaRestante = vida - danoTotal;
+		if (danoTotal > 0 && vidaRestante >= 0)
+			vida -= danoTotal;
+		else if (danoTotal > 0)
+			vida = 0;
 	}
-
-	int dadoDoHeroi = sorte(6);
-		int dadoDoOponente = sorte(6);
-		
-		if (dadoDoHeroi == dadoDoOponente) {
-			decremento(); // Na vida do proprio heroi
-			oponente.decremento();
-		} else if (dadoDoHeroi > dadoDoOponente) {
-			incremento(); // Na vida do proprio heroi
-			oponente.decremento();
-		} else { // Quando o oponente vence
-			decremento(); // Na vida do proprio heroi
-			oponente.incremento();
-		}
 
 	public void incrementarVida()
 	{
-		if (vida < pegaVidaMaxima())
+		if (vida < pegarVidaMaxima())
 			vida++;
 	}
 	
@@ -92,7 +86,7 @@ public abstract class Personagem {
 	{
 		if (vida > 0)
 			vida--;
-		if (vida == 0)
-			throw new Exception("\n# " + nome + " esta morto!\n");
+		//if (vida == 0)
+			//throw new Exception("\n# " + nome + " esta morto!\n");
 	}
 }

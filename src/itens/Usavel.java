@@ -2,5 +2,5 @@ package itens;
 
 interface Usavel
 {
-	public int usar();
+	public void usar();
 }

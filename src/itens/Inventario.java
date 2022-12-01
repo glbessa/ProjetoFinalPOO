@@ -1,18 +1,24 @@
 package itens;
 
-public class Inverntario 
-{
-	private Hashmap<String,Item> itens;
+import java.util.HashMap;
+import java.util.Set;
 
-	public Inventario()
+public class Inventario 
+{
+	private HashMap<String,Item> itens;
+	private int limiteDePeso;
+
+	public Inventario(int limiteDePeso)
 	{
-		itens = new HashMap<String, Item>;
+		itens = new HashMap<String, Item>();
+		this.limiteDePeso = limiteDePeso;
 	}
 
 	public int calcularPeso() 
 	{
 		int pesoTotal = 0;
-		for(Item item : itens.values()) {
+		for(Item item : itens.values()) 
+		{
 			pesoTotal += item.pegarPeso();
 		}
 		return pesoTotal;
@@ -25,9 +31,9 @@ public class Inverntario
 	
 	public void inserirItem(Item item) {
 		if (calcularPeso() + item.pegarPeso() <= limiteDePeso)
-			itens.put(item.pegaNome(), item);
-		else
-			throw new Exception("O inventario nao pode carregar mais itens na mochila!");
+			itens.put(item.pegarNome(), item);
+		//else
+			//throw new Exception("O inventario nao pode carregar mais itens na mochila!");
 	}
 
 	public Item pegarItem(String nome)
@@ -39,8 +45,8 @@ public class Inverntario
 		Item item = pegarItem(nome);
 		if (item != null)
 			itens.remove(nome);
-		else
-			throw new Exception("Item " + nome + " nao encontrado!");
+		//else
+			//throw new Exception("Item " + nome + " nao encontrado!");
 		return item;
 	}
 }

@@ -299,7 +299,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 				public void run() {
 					JanelaDeInventario ji = new JanelaDeInventario();
 					ji.setVisible(true);
-					ji.inicializar(heroi.pegarMochila());
+					ji.inicializar(heroi.pegarMochila(), heroi);
 				}
 			});
 		}

@@ -48,6 +48,17 @@ public abstract class Personagem
 	{
 		return vida == 0;
 	}
+
+	public void recuperarVida(int vidaExtra)
+	{
+		int novaVida = vidaExtra + pegarVida();
+		if (novaVida < 0)
+			vida = 0;
+		else if (novaVida > pegarVidaMaxima())
+			vida = vidaMaxima;
+		else
+			vida = novaVida;
+	}
 	
 	public void atacar(Personagem oponente)
 	{

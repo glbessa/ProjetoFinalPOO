@@ -8,7 +8,7 @@ public class Arma extends Equipamento
 
 	public Arma(String nome, String descricao, int peso, int dano)
 	{
-		super(nome, descricao, peso);
+		super(nome, descricao, peso, 0);
 
 		this.dano = dano;
 	}

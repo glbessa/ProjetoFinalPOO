@@ -35,10 +35,11 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private JList listaDeInventario;
 	private String itemSelecionado;
 	private Inventario inventario;
+	private Heroi heroi;
 
 	private JScrollPane pItens;
 
-	public void inicializar(Inventario inventario) 
+	public void inicializar(Inventario inventario, Heroi heroi) 
 	{
         setTitle("Invertário");
         setSize(400, 300);
@@ -94,7 +95,18 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		{
 			if (itemSelecionado != null)
 			{
-				
+				Item item = inventario.pegarItem(itemSelecionado);
+				if (item.pegarCategoria() == 0)
+					heroi.equiparArma((Arma) item);
+				else if (item.pegarCategoria() == 1)
+					heroi.equiparDefesa((Defesa) item);
+				else if (item.pegarCategoria() == 2)
+					heroi.recuperarVida(((Comida) item).pegarBonusDeVida());
+				else if (item.pegarCategoria() == 3)
+					heroi.recuperarVida(((Pocao) item).pegarBonusDeVida());
+				else if (item.pegarCategoria() == 4){}
+					//heroi.equiparArma((Arma) item);
+					
 			}
 		}
 		else if (ae.getSource() == bTirar)

@@ -4,9 +4,9 @@ abstract class Equipamento extends Item implements Desgastavel
 {
 	private int durabilidade;
 
-	public Equipamento(String nome, String descricao, int peso)
+	public Equipamento(String nome, String descricao, int peso, int categoria)
 	{
-		super(nome, descricao, peso);
+		super(nome, descricao, peso, categoria);
 		this.durabilidade = 100;
 	}
 

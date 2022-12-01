@@ -9,7 +9,8 @@ public abstract class Personagem {
 	private int ataque;
 	private int defesa;
 	
-	public Personagem(String nome, int vida) {
+	public Personagem(String nome, int vida, int vidaMaxima, int ataque, int defesa) 
+	{
 		this.nome = nome;
 		this.vida = vida;
 	}
@@ -27,16 +28,42 @@ public abstract class Personagem {
 	{
 		return vidaMaxima;
 	}
+
+	public int pegarAtaque()
+	{
+		return ataque;
+	}
+
+	public int pegarDefesa()
+	{
+		return defesa;
+	}
 	
 	public boolean estaMorto() 
 	{
-		if (vida == 0)
-			return true;
-		else
-		    return false;
+		return vida == 0;
 	}
 	
 	public void atacar(Personagem oponente)
+	{
+		Random gerador = new Random();
+		int dado1 = gerador.nextInt(6);
+		int dado2 = gerador.nextInt(6);
+
+		
+		if (dado1 > dado2)
+		{
+			oponente.defender((dado1 - dado2) * ataque);
+		}
+		else if (dado1 < dado2)
+		{
+			this.defender((dado1 - dado2) * oponente.pegarAtaque())
+		}
+
+
+	}
+
+	public void defender(int dano)
 	{
 
 	}
@@ -66,14 +93,6 @@ public abstract class Personagem {
 		if (vida > 0)
 			vida--;
 		if (vida == 0)
-			System.out.println("\n# " + nome + " esta morto!\n");
-	}
-	
- 	public void imprimir() 
-	{
-		System.out.println("#####################");
-		System.out.println("# Nome: " + nome);
-		System.out.println("# vida: " + vida);
-		System.out.println("#####################");
+			throw new Exception("\n# " + nome + " esta morto!\n");
 	}
 }

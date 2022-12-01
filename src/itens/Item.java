@@ -1,25 +1,26 @@
 package itens;
 
-public class Item {
+public abstract class Item {
 	private String nome;
 	private String descricao;
 	private int peso;
 	
-	public Item(String nome, String descricao, int peso) {
+	public Item(String nome, String descricao, int peso) 
+	{
 		this.nome = nome;
 		this.descricao = descricao;
 		this.peso = peso;
 	}
 	
-	public String pegaNome() {
+	public String pegarNome() {
 		return nome;
 	}
 	
-	public String pegaDescricao() {
+	public String pegarDescricao() {
 		return descricao;
 	}
 	
-	public int pegaPeso() {
+	public int pegarPeso() {
 		return peso;
 	}
 }

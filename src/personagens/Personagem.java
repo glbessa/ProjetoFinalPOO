@@ -2,54 +2,91 @@ package personagens;
 
 import java.util.Random;
 
-public abstract class Personagem {
+public abstract class Personagem 
+{
 	private String nome;
-	private int energia;
-
-	private static Random dado = new Random();
+	protected int vida;
+	private int vidaMaxima;
+	protected int ataque;
+	protected int defesa;
 	
-	public Personagem(String nome, int energia) {
+	public Personagem(String nome, int vida, int vidaMaxima, int ataque, int defesa) 
+	{
 		this.nome = nome;
-		this.energia = energia;
+		this.vida = vida;
+		this.vidaMaxima = vidaMaxima;
+		this.ataque = ataque;
+		this.defesa = defesa;
 	}
 	
-	public String pegaNome() {
+	public String pegarNome() 
+	{
 		return nome;
 	}
 	
-	public int pegaEnergia() {
-		return energia;
+	public int pegarVida() 
+	{
+		return vida;
+	}
+
+	public int pegarVidaMaxima()
+	{
+		return vidaMaxima;
+	}
+
+	public int pegarAtaque()
+	{
+		return ataque;
+	}
+
+	public int pegarDefesa()
+	{
+		return defesa;
 	}
 	
-	public boolean estaMorto() {
-		if (energia == 0)
-			return true;
+	public boolean estaMorto() 
+	{
+		return vida == 0;
+	}
+	
+	public void atacar(Personagem oponente)
+	{
+		Random gerador = new Random();
+		int dado1 = gerador.nextInt(10);
+		int dado2 = gerador.nextInt(10);
+
+		
+		if (dado1 > dado2)
+		{
+			oponente.defender((dado1) * ataque);
+		}
 		else
-		    return false;
+		{
+			this.defender((dado2) * oponente.pegarAtaque());
+		}
+	}
+
+	public void defender(int dano)
+	{
+		int danoTotal = dano - defesa;
+		int vidaRestante = vida - danoTotal;
+		if (danoTotal > 0 && vidaRestante >= 0)
+			vida -= danoTotal;
+		else if (danoTotal > 0)
+			vida = 0;
+	}
+
+	public void incrementarVida()
+	{
+		if (vida < pegarVidaMaxima())
+			vida++;
 	}
 	
-	public abstract int pegaEnergiaMaxima();
-	
-	public void incremento() {
-		if (energia < pegaEnergiaMaxima())
-			energia++;
-	}
-	
-	public void decremento() {
-		if (energia > 0)
-			energia--;
-		if (energia == 0)
-			System.out.println("\n# " + nome + " esta morto!\n");
-	}
-	
-	public int sorte(int valorMaximo) {
-		return dado.nextInt(valorMaximo) + 1;
-	}
-	
- 	public void imprimir() {
-		System.out.println("#####################");
-		System.out.println("# Nome: " + nome);
-		System.out.println("# Energia: " + energia);
-		System.out.println("#####################");
+	public void decrementarVida()
+	{
+		if (vida > 0)
+			vida--;
+		//if (vida == 0)
+			//throw new Exception("\n# " + nome + " esta morto!\n");
 	}
 }

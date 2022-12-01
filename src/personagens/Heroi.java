@@ -2,73 +2,75 @@ package personagens;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import itens.*;
 
 public class Heroi extends Personagem {
-	private int energiaMaxima;
-	private int limiteDePeso;
-	private Map<String, Item> mochila;
+	private Arma armaEquipada;
+	private Defesa defesaEquipada;
+	private int vidaMaxima;
+	private Inventario mochila;
 	
-	public Heroi(String nome, int energia, int energiaMaxima, int limiteDePeso) {
-		super(nome, energia);
-		this.energiaMaxima = energiaMaxima;
-		this.limiteDePeso = limiteDePeso;
-		mochila = new HashMap();
-	}
-	
-	private int calcularPeso() {
-		int pesoTotal = 0;
-		for(Item item : mochila.values()) {
-			pesoTotal += item.pegaPeso();
-		}
-		return pesoTotal;
-	}
-	
-	public void inserirItem(Item item) {
-		if (calcularPeso() + item.pegaPeso() <= limiteDePeso) {
-			mochila.put(item.pegaNome(), item);
-		} else {
-			System.out.println("\n# O " + pegaNome() + " nao pode carregar mais itens na mochila!\n");
-		}
-	}
-	
-	public Item removerItem(String nome) {
-		Item item = mochila.get(nome);
-		if (item != null)
-			mochila.remove(nome);
-		else
-			System.out.println("\n# O item '" + nome + "' nao esta na mochila do heroi!\n");
-		return item;
+	public Heroi(String nome, int vida, int vidaMaxima, int ataque, int defesa, int limiteDePeso) {
+		super(nome, vida, vidaMaxima, ataque, defesa);
+		this.vidaMaxima = vidaMaxima;
+		this.mochila = new Inventario(limiteDePeso);
 	}
 	
 	public void alimentar() {
-		incremento();
-		incremento();
+		incrementarVida();
+		incrementarVida();
+	}
+
+	public Inventario pegarMochila()
+	{
+		return mochila;
+	}
+
+	public void setMochila(Inventario mochila)
+	{
+		this.mochila = mochila;
+	}
+
+	public void equiparArma(Arma arma)
+	{
+		armaEquipada = arma;
+	}
+
+	public void equiparDefesa(Defesa defesa)
+	{
+		defesaEquipada = defesa;
 	}
 	
-	public void lutar(Personagem oponente) {
-		int dadoDoHeroi = sorte(6);
-		int dadoDoOponente = sorte(6);
-		
-		if (dadoDoHeroi == dadoDoOponente) {
-			decremento(); // Na energia do proprio heroi
-			oponente.decremento();
-		} else if (dadoDoHeroi > dadoDoOponente) {
-			incremento(); // Na energia do proprio heroi
-			oponente.decremento();
-		} else { // Quando o oponente vence
-			decremento(); // Na energia do proprio heroi
-			oponente.incremento();
+	public int pegarVidaMaxima() 
+	{
+		return vidaMaxima;
+	}
+
+	public void atacar(Personagem oponente)
+	{
+		Random gerador = new Random();
+		int dado1 = gerador.nextInt(10);
+		int dado2 = gerador.nextInt(10);
+
+		if (dado1 > dado2)
+		{
+			oponente.defender((dado1) * (ataque + armaEquipada.pegarDano()));
+		}
+		else
+		{
+			this.defender((dado2) * oponente.pegarAtaque());
 		}
 	}
-	
-	public void imprimir() {
-		System.out.println("#####################");
-		System.out.println("# Dados do Heroi");
-		super.imprimir();
-	}
-	
-	public int pegaEnergiaMaxima() {
-		return energiaMaxima;
+
+	public void defender(int dano)
+	{
+		int danoTotal = dano - (this.defesa + defesaEquipada.pegarDefesa());
+		int vidaRestante = this.vida - danoTotal;
+		if (danoTotal > 0 && vidaRestante >= 0)
+			vida -= danoTotal;
+		else if (danoTotal > 0)
+			vida = 0;
 	}
 }

@@ -16,42 +16,47 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import personagens.Heroi;
-import jogo.Room;
+import jogo.Sala;
 
-public class PainelItensSala extends JPanel {
-  private Room sala;
-  private JList itens;
-  private JLabel titulo;
+public class PainelDeItensSala extends JPanel 
+{
+	private Sala sala;
+	private JList<String> itens;
+	private JLabel titulo;
 
-  public PainelItensSala(Room sala){
-    this.sala = sala;
+	public PainelDeItensSala(Sala sala)
+	{
+		this.sala = sala;
 
-    setBackground(new Color(0, 255, 255));
-    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setBackground(new Color(0, 255, 255));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    JPanel pListaItens = new JPanel();
-    titulo = new JLabel("Itens na sala:");
-    add(titulo);
-    pListaItens.setLayout(new GridLayout());
+		JPanel pListaItens = new JPanel();
+		titulo = new JLabel("Itens na sala:");
+		add(titulo);
+		pListaItens.setLayout(new GridLayout());
 
-    itens = new JList();
+		itens = new JList<String>();
 		itens.setModel(new DefaultListModel());
 		itens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		itens.setLayoutOrientation(JList.VERTICAL);
 		itens.setVisibleRowCount(-1);
 		JScrollPane pSalas = new JScrollPane(itens);
 		pListaItens.add(pSalas);
-		
+			
 		add(pListaItens);
-  }
-
-  public void mudarDeSala(Room novaSala){
-    sala = novaSala;
-    atualizar();
-  }
-
-  public void atualizar() {
-		// descricao.setText("You are " + sala.getShortDescription());
-		((DefaultListModel) itens.getModel()).removeAllElements();
 	}
+
+	public void mudarDeSala(Sala novaSala)
+	{
+		sala = novaSala;
+		atualizar();
+	}
+
+	public void atualizar() 
+	{
+			((DefaultListModel) itens.getModel()).removeAllElements();
+	}
+
+
 }

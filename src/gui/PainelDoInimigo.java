@@ -13,7 +13,7 @@ import personagens.Vilao;
 
 public class PainelDoInimigo extends JPanel{
 	private JLabel nome;
-	private JLabel energia;
+	private JLabel vida;
 	private JLabel titulo;
 
 	public PainelDoInimigo() {
@@ -22,19 +22,19 @@ public class PainelDoInimigo extends JPanel{
 		// Label com o nome do Heroi
 		titulo = new JLabel("==Inimigo==");
 		nome = new JLabel("Nome: ");
-		energia = new JLabel("Energia: ");
+		vida = new JLabel("Vida: ");
 		add(titulo);
 		add(nome);
-		add(energia);
+		add(vida);
 	}
 	
 	public void atualizar(Personagem vilao) {
-		nome.setText("Nome: " + vilao.pegaNome());
-		energia.setText("Energia: " + vilao.pegaEnergia() + " / " + vilao.pegaEnergiaMaxima());
+		nome.setText("Nome: " + vilao.pegarNome());
+		vida.setText("Vida: " + vilao.pegarVida() + " / " + vilao.pegarVidaMaxima());
 	}
 
 	public void limpar() {
 		nome.setText("Nome: ");
-		energia.setText("Energia: ");
+		vida.setText("Vida: ");
 	}
 }

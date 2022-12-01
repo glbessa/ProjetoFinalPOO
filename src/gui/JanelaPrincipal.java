@@ -133,6 +133,25 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         bossRoom.inserirPersonagem(capanga2);
         bossRoom.inserirPersonagem(capanga3);
 
+				Arma espadaEntranceRoom = new Arma("Espada de Aço", "Uma espada leve porém poderosa", 3, 4);
+				Defesa escudoEntranceRoom = new Defesa("Escudo de Madeira", "Escudo leve", 4, 3);
+				Arma machadoArmorRoom = new Arma("Machado Medieval", "Machado usado por cavaleiros medievais", 5, 7);
+				Defesa escudoArmorRoom = new Defesa("Escudo Dourado", "Escudo muito resistente", 5, 3);
+				Pocao pocaoLobby = new Pocao("Poção de vida", "Tome para recuperar sua vida", 1, 8);
+				Comida pizzaLibrary = new Comida("Pizza", "Uma pizza para recuperar sua vida", 1, 4);
+				Comida uvaHallway = new Comida("Uvas", "Um cacho de uvas para recuperar sua vida", 1, 4);
+				Arma espadaHallway = new Arma("Espada Lendária", "A espada mais forte de todas", 3, 9);
+
+				mainEntrance.inserirItem(espadaEntranceRoom);
+				mainEntrance.inserirItem(escudoEntranceRoom);
+				lobby.inserirItem(pocaoLobby);
+				library.inserirItem(pizzaLibrary);
+				armorSala.inserirItem(machadoArmorRoom);
+				armorSala.inserirItem(escudoArmorRoom);
+				hallwayToBoss.inserirItem(uvaHallway);
+				hallwayToBoss.inserirItem(espadaHallway);
+			
+
 		// criando itens
 		//...
 

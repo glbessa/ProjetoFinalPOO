@@ -53,6 +53,8 @@ public class Sala
         return saidas.get(direcao);
     }
     
+
+
     public void inserirPersonagem(Personagem personagem) {
     	personagens.put(personagem.pegarNome(), personagem);
     }
@@ -73,6 +75,11 @@ public class Sala
 	public Item pegarItem(String nome)
 	{
 		return itens.get(nome);
+	}
+
+	public Item inserirItem(Item item)
+	{
+		return itens.put(item.pegarNome(), item);
 	}
 
 	public Set<String> pegarItens()

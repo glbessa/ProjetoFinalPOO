@@ -32,18 +32,19 @@ public class PainelDaSala extends JPanel {
 		this.sala = sala;
 		inimigoSelecionado = null;
 		
-		setBackground(new Color(0, 255, 255));
+		setBackground(Color.white);
 		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		//setLayout(new GridLayout(3, 0));
 		
 		// Label com a descricao da sala
-		descricao = new JLabel("You are ...");
-		add(descricao);
+		descricao = new JLabel("Você está na Frente da Mansão");
+	
 		
 		// Painel com listas de Heroi e Itens
+		add(descricao);
 		JPanel painelListas = new JPanel();
-		painelListas.setLayout(new GridLayout(2, 2));
+		painelListas.setLayout(new GridLayout(3, 2));
 		
 		painelListas.add(new JLabel("Inimigos"));
 		painelListas.add(new JLabel("Itens"));
@@ -78,7 +79,7 @@ public class PainelDaSala extends JPanel {
 	}
 	
 	public void atualizar() {
-		// descricao.setText("You are " + sala.getShortDescription());
+		descricao.setText("Você está " + sala.getDescription());
 		
 		((DefaultListModel) inimigos.getModel()).removeAllElements();
 		for (String nome : sala.pegaConjuntoDePersonagens()) {

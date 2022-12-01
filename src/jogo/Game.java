@@ -44,17 +44,18 @@ public class Game
     {
         Room outside, mainEntrance, lobby, armorRoom, dungeon, library, bossRoom, hallwayToArmorRoom, hallwayToBoss, hallwayToLibrary;
       
-     
-        outside = new Room();
-        mainEntrance = new Room();
-        armorRoom = new Room();
-        dungeon = new Room();
-        library = new Room();
-        bossRoom = new Room();
-        lobby = new Room();
-        hallwayToArmorRoom = new Room();
-        hallwayToLibrary = new Room();
-        hallwayToBoss = new Room();
+        outside = new Room("na Frente da Mansão", "outside");
+        mainEntrance = new Room("na Sala de Entrada", "mainEntrance");
+        armorRoom = new Room("na Sala de Armaduras", "armorRoom");
+        dungeon = new Room("na Dungeon", "dungeon");
+        library = new Room("na Biblioteca", "library");
+        bossRoom = new Room("no Salão Final", "bossRoom");
+        lobby = new Room("no Lobby", "lobby");
+        hallwayToArmorRoom = new Room("no corredor para Sala de Armaduras", "hallwayToArmorRoom");
+        hallwayToLibrary = new Room("no corredor para Biblioteca", "hallwayToLibrary");
+        hallwayToBoss = new Room("no corredor para o Salão Final ", "hallwayToBoss");
+
+
 
         outside.setExit("west", mainEntrance);
 

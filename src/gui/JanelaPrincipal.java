@@ -55,6 +55,9 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		heroi.pegarMochila().inserirItem(arma);
 		heroi.equiparArma(arma);
 
+		Defesa escudo = new Defesa("Escudo lv1", "", 2, 10);
+		heroi.pegarMochila().inserirItem(escudo);
+
         setTitle("Mansão Demoníaca");
         setSize(1366, 768);
         setVisible(true);
@@ -200,8 +203,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         JPanel painelDosBotoes = new JPanel();
 		painelDosBotoes.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
 		painelDosBotoes.setLayout(new GridLayout(0, 2));
-		
-		
 
 		JPanel comandos = new JPanel();
 		comandos.setLayout(new GridLayout(3,0));

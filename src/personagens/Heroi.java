@@ -38,9 +38,19 @@ public class Heroi extends Personagem {
 		armaEquipada = arma;
 	}
 
+	public Arma pegarArmaEquipada()
+	{
+		return armaEquipada;
+	}
+
 	public void equiparDefesa(Defesa defesa)
 	{
 		defesaEquipada = defesa;
+	}
+
+	public Defesa pegarDefesaEquipada()
+	{
+		return defesaEquipada;
 	}
 	
 	public int pegarVidaMaxima() 
@@ -50,17 +60,18 @@ public class Heroi extends Personagem {
 
 	public void atacar(Personagem oponente)
 	{
-		Random gerador = new Random();
-		int dado1 = gerador.nextInt(10);
-		int dado2 = gerador.nextInt(10);
+		Random dado1 = new Random();
+		Random dado2 = new Random();
+		int n1 = dado1.nextInt(10);
+		int n2 = dado2.nextInt(10);
 
-		if (dado1 > dado2)
+		if (n1 > n2)
 		{
-			oponente.defender((dado1) * (ataque + armaEquipada.pegarDano()));
+			oponente.defender((n1) * (ataque + armaEquipada.pegarDano()));
 		}
 		else
 		{
-			this.defender((dado2) * oponente.pegarAtaque());
+			this.defender((n2) * oponente.pegarAtaque());
 		}
 	}
 

@@ -41,25 +41,28 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	public void inicializar(Inventario inventario) 
 	{
         setTitle("Invertário");
-        setSize(450, 300);
+        setSize(400, 300);
         setLocationRelativeTo(null);
         setLayout(new GridLayout());
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
         
 		this.inventario = inventario;
 
         painelPrincipal = new JPanel();
-        add(painelPrincipal);
         painelPrincipal.setBackground(new Color(255, 255, 255));
         painelPrincipal.setVisible(true);
+		add(painelPrincipal);
+        
+		String[] teste = {"1", "2", "3", "4"};
 
-		listaDeInventario = new JList();
+		listaDeInventario = new JList(teste);
 		listaDeInventario.setModel(new DefaultListModel());
 		listaDeInventario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaDeInventario.setLayoutOrientation(JList.VERTICAL);
 		listaDeInventario.setVisibleRowCount(-1);
 		listaDeInventario.addListSelectionListener(new ListaDeInventarioSelectionHandler());
+		painelPrincipal.add(listaDeInventario);
 
+		
 		pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
 
@@ -79,9 +82,9 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		bSair.addActionListener(this);
 		painelBotoes.add(bSair);
 		
-		painelPrincipal.add(painelBotoes);
+		//painelPrincipal.add(painelBotoes);
 
-		atualizar();
+		//atualizar();
     }
 
 	@Override

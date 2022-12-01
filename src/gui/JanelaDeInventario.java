@@ -67,7 +67,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		painelBotoes = new JPanel();
 		painelBotoes.setLayout(new GridLayout(3,0));
 		
-		bUsar = new JButton("Usar");
+		bUsar = new JButton("Usar/Equipar");
 		bUsar.addActionListener(this);
 		painelBotoes.add(bUsar);
 
@@ -89,7 +89,10 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	{
 		if (ae.getSource() == bUsar)
 		{
-
+			if (itemSelecionado != null)
+			{
+				
+			}
 		}
 		else if (ae.getSource() == bTirar)
 		{
@@ -110,7 +113,9 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		((DefaultListModel) listaDeInventario.getModel()).removeAllElements();
 
 		for (String nome : inventario.pegarNomes())
+		{
 			((DefaultListModel) listaDeInventario.getModel()).addElement(nome);
+		}
 	}
 
 	class ListaDeInventarioSelectionHandler implements ListSelectionListener 

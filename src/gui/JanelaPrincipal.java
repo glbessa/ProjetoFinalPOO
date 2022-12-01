@@ -27,15 +27,19 @@ import jogo.Room;
 public class JanelaPrincipal extends JFrame implements ActionListener{
 	private Parser parser;
     private Room currentRoom;
+    private JPanel painelEsq;
+    private JPanel painelDir;
     private Heroi heroi;
+    private JFrame frame;
     
     // Atributos de componetes da GUI
 	private PainelDoHeroi pHeroi;
     private PainelDoInimigo pVidaInimigos;
 	private PainelDaSala painelSala;
     // private PainelItensSala painelSala;
+    private LerImagensSalas imagemSala;
     private PainelDaSala pRoom;
-	private JTextArea console;
+	// private JTextArea console;
 	private JButton bAtacar; 
 	private JButton bPegar; 
 	private JButton bSoltar; 
@@ -44,39 +48,39 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 	private JButton bLeste; 
 	private JButton bOeste; 
     
-    /**
-     * Create the game and initialise its internal map.
-     */
     public JanelaPrincipal() 
     {
-    	// Definicoes originais da Classe Game
         createRooms();
         parser = new Parser();
         heroi = new Heroi("Cristopher", 8, 10, 100);
+
+        frame = new JFrame();
         
-        // Chamada do metodo que vai construir a janela principal
+        frame.setTitle("Mansão Demoníaca");
+        frame.setSize(1366, 768);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+  
         initGUI();
         
     }
 
-    /**
-     * Create all the rooms and link their exits together.
-     */
     private void createRooms()
     {
         Room outside, mainEntrance, lobby, armorRoom, dungeon, library, bossRoom, hallwayToArmorRoom, hallwayToBoss, hallwayToLibrary;
       
      
-        outside = new Room();
-        mainEntrance = new Room();
-        armorRoom = new Room();
-        dungeon = new Room();
-        library = new Room();
-        bossRoom = new Room();
-        lobby = new Room();
-        hallwayToArmorRoom = new Room();
-        hallwayToLibrary = new Room();
-        hallwayToBoss = new Room();
+        outside = new Room("na Frente da Mansão", "outside");
+        mainEntrance = new Room("na Sala de Entrada", "mainEntrance");
+        armorRoom = new Room("na Sala de Armaduras", "armorRoom");
+        dungeon = new Room("na Dungeon", "dungeon");
+        library = new Room("na Biblioteca", "library");
+        bossRoom = new Room("no Salão Final", "bossRoom");
+        lobby = new Room("no Lobby", "lobby");
+        hallwayToArmorRoom = new Room("no corredor para Sala de Armaduras", "hallwayToArmorRoom");
+        hallwayToLibrary = new Room("no corredor para Biblioteca", "hallwayToLibrary");
+        hallwayToBoss = new Room("no corredor para o Salão Final ", "hallwayToBoss");
 
         outside.setExit("west", mainEntrance);
 
@@ -132,10 +136,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         currentRoom = outside;  // Começa o jogo fora da mansão
     }
 
-    /**
-     *  Main play routine.  Loops until end of play.
-     */
-    // Remover!
     public void play() 
     {            
                 
@@ -159,7 +159,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         }
 
         if (commandWord == CommandWord.HELP) {
-            printHelp();
         }
         else if (commandWord == CommandWord.GO) {
             goRoom(command);
@@ -177,33 +176,13 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         return wantToQuit;
     }
 
-    // implementations of user commands:
-
-    /**
-     * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
-     * command words.
-     */
-    // Remover!
-    private void printHelp() 
-    {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
-    }
-
-    /** 
-     * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message.
-     */
+  
     private void goRoom(Command command) 
     {
     	//*
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-        	console.append("\nGo where?\n");
+        	// console.append("\nGo where?\n");
             return;
         }
 
@@ -213,22 +192,17 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-        	console.append("\nThere is no door to " + direction + "!\n");
+        	// console.append("\nThere is no door to " + direction + "!\n");
         }
         else {
             currentRoom = nextRoom;
+            initializeGUI(currentRoom);
             painelSala.mudarDeSala(currentRoom);
             // painelSala.mudarDeSala(currentRoom);
         }
         //*/
     }
 
-    /** 
-     * "Quit" was entered. Check the rest of the command to see
-     * whether we really quit the game.
-     * @return true, if this command quits the game, false otherwise.
-     */
-    // Remover!
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
@@ -251,7 +225,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     	Personagem oponente;
     	
     	if (!command.hasSecondWord()) {
-    		console.append("\nAttack who?\n");
+    		// console.append("\nAttack who?\n");
     		return;
     	}
     	
@@ -261,7 +235,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     		pHeroi.atualizar();
     		painelSala.atualizarInimigo();
     	} else {
-    		console.append("\nThe character '"+ command.getSecondWord() +"' is not in the current room.\n");
+    		// console.append("\nThe character '"+ command.getSecondWord() +"' is not in the current room.\n");
     	}
     	//*/
     }
@@ -269,44 +243,22 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     // ******************************************************
     // Metodos relacionadas a GUI
     // ******************************************************
-	
-    public void initGUI() {
-    	setTitle("Caverna do Dragao");
-        setSize(1024, 720);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridLayout());
-        
-        // Construcao dos paineis principais Esquerda/Direita #############################
-        //*
-        JPanel painelEsq = new JPanel();
-        JPanel painelDir = new JPanel();
-        add(painelEsq);
-        add(painelDir);
-        painelEsq.setBackground(new Color(255, 0, 0));
-        painelDir.setBackground(Color.white);
-        painelEsq.setVisible(true);
-        painelDir.setVisible(true);
-        //*/
-        
-        // Construcao do painel da esquerda #################################################
-        //*
+
+	public void initPainelEsq(){
+        painelEsq = new JPanel();
         painelEsq.setLayout(new GridLayout(2, 0));
-        painelEsq.add(new ImagemSala());
+        painelEsq.add(currentRoom.lerImagemRoom(currentRoom));
         painelEsq.add(new ImagemMapa());
-        //*/
-        
-        // Construcao do painel da direita ##################################################
+        painelEsq.setVisible(true);
+        frame.add(painelEsq);
+    }
+
+    public void initPainelDir(){
+        painelDir = new JPanel();
+        painelDir.setVisible(true);
         painelDir.setLayout(new GridLayout(3,0));
-        
-       
         painelSala = new PainelDaSala(currentRoom);
         painelDir.add(painelSala);
-        //*/
-
-        // pVidaInimigos = new PainelDoInimigo();
-        // painelDir.add(pVidaInimigos);
-
         pHeroi = new PainelDoHeroi(heroi);
         painelDir.add(pHeroi);
         
@@ -348,16 +300,32 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		movimentos.add(bOeste, BorderLayout.WEST);
 		// Adicao do painel de botes no painel principal da direita
 		painelDir.add(painelDosBotoes);
-		//*/
+
+        frame.add(painelDir);
     }
+
+    public void initGUI() {
+        frame.setLayout(new GridLayout());
+        initPainelEsq();
+        initPainelDir();
+    }
+
+    public void initializeGUI(Room currentRoom){
+        frame.remove(painelEsq);
+        frame.remove(painelDir);
+        initPainelEsq();
+        initPainelDir();
+    }
+
+    
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		//*
 		if (ae.getSource() == bPegar) {
-			console.append("AVISO: A funcao para pegar itens ainda precisa ser implementada!\n");
+			// console.append("AVISO: A funcao para pegar itens ainda precisa ser implementada!\n");
 		} else if (ae.getSource() == bSoltar) {
-			console.append("AVISO: A funcao para soltar itens ainda precisa ser implementada!\n");
+			// console.append("AVISO: A funcao para soltar itens ainda precisa ser implementada!\n");
 		} else if (ae.getSource() == bNorte) {
 			Command comando = new Command(CommandWord.GO, "north");
 			goRoom(comando);

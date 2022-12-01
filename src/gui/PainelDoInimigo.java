@@ -17,11 +17,10 @@ public class PainelDoInimigo extends JPanel{
 	private JLabel titulo;
 
 	public PainelDoInimigo() {
-		setBackground(new Color(255,99,71));
-		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+		setBackground(Color.white);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		// Label com o nome do Heroi
-		titulo = new JLabel("============================================Painel do Inimigo============================================");
+		titulo = new JLabel("==Inimigo==");
 		nome = new JLabel("Nome: ");
 		energia = new JLabel("Energia: ");
 		add(titulo);

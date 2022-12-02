@@ -50,10 +50,8 @@ public class JanelaDeInventario extends JFrame implements ActionListener
         painelPrincipal.setBackground(new Color(255, 255, 255));
         painelPrincipal.setVisible(true);
 		add(painelPrincipal);
-        
-		String[] teste = {"1", "2", "3", "4"};
 
-		listaDeInventario = new JList(teste);
+		listaDeInventario = new JList();
 		listaDeInventario.setModel(new DefaultListModel());
 		listaDeInventario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaDeInventario.setLayoutOrientation(JList.VERTICAL);
@@ -62,7 +60,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		JScrollPane pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
 
-
+		
 		painelBotoes = new JPanel();
 		painelBotoes.setLayout(new GridLayout(3,0));
 		

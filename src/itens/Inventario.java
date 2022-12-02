@@ -14,6 +14,7 @@ public class Inventario
 	{
 		itens = new HashMap<String, Item>();
 		this.limiteDePeso = limiteDePeso;
+		moedas = 0;
 	}
 
 	public int pegarMoedas()

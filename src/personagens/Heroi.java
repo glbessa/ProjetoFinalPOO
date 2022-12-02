@@ -15,11 +15,6 @@ public class Heroi extends Personagem {
 		super(nome, vida, vidaMaxima, ataque, defesa);
 		this.mochila = new Inventario(limiteDePeso);
 	}
-	
-	public void alimentar() {
-		incrementarVida();
-		incrementarVida();
-	}
 
 	public Inventario pegarMochila()
 	{
@@ -53,18 +48,17 @@ public class Heroi extends Personagem {
 
 	public void atacar(Personagem oponente)
 	{
-		Random dado1 = new Random();
-		Random dado2 = new Random();
-		int n1 = dado1.nextInt(10);
-		int n2 = dado2.nextInt(10);
+		Random gerador = new Random();
+		int n1 = gerador.nextInt(10);
+		int n2 = gerador.nextInt(10);
 
 		if (n1 > n2)
 		{
-			oponente.defender((n1) * (ataque + armaEquipada.pegarDano()));
+			oponente.defender((pegarAtaque() + armaEquipada.pegarDano()));
 		}
 		else
 		{
-			this.defender((n2) * oponente.pegarAtaque());
+			this.defender(oponente.pegarAtaque());
 		}
 
 		if (oponente.estaMorto())
@@ -73,7 +67,7 @@ public class Heroi extends Personagem {
 
 	public void defender(int dano)
 	{
-		int danoTotal = dano - (this.defesa + defesaEquipada.pegarDefesa());
+		int danoTotal = dano - (pegarDefesa() + defesaEquipada.pegarDefesa());
 		int vidaRestante = this.vida - danoTotal;
 		if (danoTotal > 0 && vidaRestante >= 0)
 			vida -= danoTotal;

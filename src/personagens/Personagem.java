@@ -7,8 +7,8 @@ public abstract class Personagem
 	private String nome;
 	protected int vida;
 	private int vidaMaxima;
-	protected int ataque;
-	protected int defesa;
+	private int ataque;
+	private int defesa;
 	
 	public Personagem(String nome, int vida, int vidaMaxima, int ataque, int defesa) 
 	{
@@ -59,23 +59,6 @@ public abstract class Personagem
 		else
 			vida = novaVida;
 	}
-	
-	public void atacar(Personagem oponente)
-	{
-		Random gerador = new Random();
-		int dado1 = gerador.nextInt(10);
-		int dado2 = gerador.nextInt(10);
-
-		
-		if (dado1 > dado2)
-		{
-			oponente.defender((dado1) * ataque);
-		}
-		else
-		{
-			this.defender((dado2) * oponente.pegarAtaque());
-		}
-	}
 
 	public void defender(int dano)
 	{
@@ -85,19 +68,5 @@ public abstract class Personagem
 			vida -= danoTotal;
 		else if (danoTotal > 0)
 			vida = 0;
-	}
-
-	public void incrementarVida()
-	{
-		if (vida < pegarVidaMaxima())
-			vida++;
-	}
-	
-	public void decrementarVida()
-	{
-		if (vida > 0)
-			vida--;
-		//if (vida == 0)
-			//throw new Exception("\n# " + nome + " esta morto!\n");
 	}
 }

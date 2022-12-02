@@ -18,6 +18,7 @@ public class PainelDoHeroi extends JPanel{
 	private JLabel vida;
 	private JLabel labelArma;
 	private JLabel labelDefesa;
+	private JLabel labelMoedas;
 	private JLabel titulo;
 
 	public PainelDoHeroi(Heroi heroi) {
@@ -32,11 +33,13 @@ public class PainelDoHeroi extends JPanel{
 		vida = new JLabel("Vida: ");
 		labelArma = new JLabel("Arma equipada: ");
 		labelDefesa = new JLabel("Defesa equipada: ");
+		labelMoedas = new JLabel("Moedas: ");
 		add(titulo);
 		add(nome);
 		add(vida);
 		add(labelArma);
 		add(labelDefesa);
+		add(labelMoedas);
 	}
 	
 	public void atualizar() {
@@ -44,5 +47,6 @@ public class PainelDoHeroi extends JPanel{
 		vida.setText("Vida: " + heroi.pegarVida() + " / " + heroi.pegarVidaMaxima());
 		labelArma.setText("Arma equipada: " + heroi.pegarArmaEquipada().pegarNome() + " - Bônus de ataque: " + heroi.pegarArmaEquipada().pegarDano());
 		labelDefesa.setText("Defesa equipada: " + heroi.pegarDefesaEquipada().pegarNome() + " - Bônus de defesa: " + heroi.pegarDefesaEquipada().pegarDefesa());
+		labelMoedas.setText("Moedas: " + heroi.pegarMochila().pegarMoedas());
 	}
 }

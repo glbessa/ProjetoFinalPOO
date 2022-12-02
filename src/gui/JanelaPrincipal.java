@@ -146,18 +146,11 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 				mainEntrance.inserirItem(escudoEntranceRoom);
 				lobby.inserirItem(pocaoLobby);
 				library.inserirItem(pizzaLibrary);
-				armorSala.inserirItem(machadoArmorRoom);
-				armorSala.inserirItem(escudoArmorRoom);
-				hallwayToBoss.inserirItem(uvaHallway);
-				hallwayToBoss.inserirItem(espadaHallway);
+		armorSala.inserirItem(machadoArmorRoom);
+		armorSala.inserirItem(escudoArmorRoom);
+		hallwayToBoss.inserirItem(uvaHallway);
+		hallwayToBoss.inserirItem(espadaHallway);
 			
-
-		// criando itens
-		//...
-
-		// adicionando os itens as salas
-		//...
-
         salaAtual = outside;  // Começa o jogo fora da mansão
     }
 

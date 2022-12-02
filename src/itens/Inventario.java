@@ -2,16 +2,29 @@ package itens;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.lang.Math;
 
 public class Inventario 
 {
 	private HashMap<String,Item> itens;
+	private int moedas;
 	private int limiteDePeso;
 
 	public Inventario(int limiteDePeso)
 	{
 		itens = new HashMap<String, Item>();
 		this.limiteDePeso = limiteDePeso;
+	}
+
+	public int pegarMoedas()
+	{
+		return moedas;
+	}
+
+	public void adicionarMoedas(int maisMoedas)
+	{
+		if (maisMoedas > 0)
+			moedas += maisMoedas;
 	}
 
 	public int calcularPeso() 
@@ -21,6 +34,7 @@ public class Inventario
 		{
 			pesoTotal += item.pegarPeso();
 		}
+		pesoTotal += Math.ceil(moedas / 1000);
 		return pesoTotal;
 	}
 

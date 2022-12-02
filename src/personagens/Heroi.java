@@ -39,10 +39,28 @@ public class Heroi extends Personagem {
 		armaEquipada = arma;
 	}
 
+	public Arma pegarArmaEquipada()
+	{
+		return armaEquipada;
+	}
+
 	public void equiparDefesa(Defesa defesa)
 	{
 		defesaEquipada = defesa;
 	}
+<<<<<<< HEAD
+=======
+
+	public Defesa pegarDefesaEquipada()
+	{
+		return defesaEquipada;
+	}
+	
+	public int pegarVidaMaxima() 
+	{
+		return vidaMaxima;
+	}
+>>>>>>> e1d2a71 (alteracoes)
 
 	public void atacar(Personagem oponente)
 	{

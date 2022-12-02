@@ -9,12 +9,10 @@ import itens.*;
 public class Heroi extends Personagem {
 	private Arma armaEquipada;
 	private Defesa defesaEquipada;
-	private int vidaMaxima;
 	private Inventario mochila;
 	
 	public Heroi(String nome, int vida, int vidaMaxima, int ataque, int defesa, int limiteDePeso) {
 		super(nome, vida, vidaMaxima, ataque, defesa);
-		this.vidaMaxima = vidaMaxima;
 		this.mochila = new Inventario(limiteDePeso);
 	}
 	
@@ -42,11 +40,6 @@ public class Heroi extends Personagem {
 	{
 		defesaEquipada = defesa;
 	}
-	
-	public int pegarVidaMaxima() 
-	{
-		return vidaMaxima;
-	}
 
 	public void atacar(Personagem oponente)
 	{
@@ -62,6 +55,9 @@ public class Heroi extends Personagem {
 		{
 			this.defender((dado2) * oponente.pegarAtaque());
 		}
+
+		if (oponente.estaMorto())
+			mochila.adicionarMoedas(gerador.nextInt(500));
 	}
 
 	public void defender(int dano)

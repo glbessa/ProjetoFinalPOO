@@ -61,7 +61,7 @@ public class PainelDaSala extends JPanel {
 		itens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		itens.setLayoutOrientation(JList.VERTICAL);
 		itens.setVisibleRowCount(-1);
-		inimigos.addListSelectionListener(new ItensSelectionHandler());
+		itens.addListSelectionListener(new ItensSelectionHandler());
 		JScrollPane pItens = new JScrollPane(itens);
 		painelListas.add(pItens);
 		

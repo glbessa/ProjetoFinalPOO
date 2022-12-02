@@ -37,8 +37,6 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private Inventario inventario;
 	private Heroi heroi;
 
-	private JScrollPane pItens;
-
 	public void inicializar(Inventario inventario, Heroi heroi) 
 	{
         setTitle("Invertário");
@@ -61,10 +59,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		listaDeInventario.setLayoutOrientation(JList.VERTICAL);
 		listaDeInventario.setVisibleRowCount(-1);
 		listaDeInventario.addListSelectionListener(new ListaDeInventarioSelectionHandler());
-		painelPrincipal.add(listaDeInventario);
-
-		
-		pItens = new JScrollPane(listaDeInventario);
+		JScrollPane pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
 
 
@@ -83,9 +78,9 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		bSair.addActionListener(this);
 		painelBotoes.add(bSair);
 		
-		//painelPrincipal.add(painelBotoes);
+		painelPrincipal.add(painelBotoes);
 
-		//atualizar();
+		atualizar();
     }
 
 	@Override

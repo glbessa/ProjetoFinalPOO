@@ -6,4 +6,5 @@ public class Vilao extends Personagem
 	{
 		super(nome, vida, vidaMaxima, ataque, defesa);
 	}
+
 }

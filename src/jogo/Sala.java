@@ -87,6 +87,10 @@ public class Sala
 		return itens.keySet();
 	}
 
+    public void removerPersonagem(String personagem){
+        personagens.remove(personagem);
+    }
+
 
 
 }

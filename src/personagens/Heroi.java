@@ -18,11 +18,6 @@ public class Heroi extends Personagem {
 		this.mochila = new Inventario(limiteDePeso);
 	}
 
-	public void alimentar() {
-		incrementarVida();
-		incrementarVida();
-	}
-
 	public Inventario pegarMochila()
 	{
 		return mochila;
@@ -63,13 +58,13 @@ public class Heroi extends Personagem {
 		if (dado1 > dado2)
 		{
 			int dadoMultiplicadorAtaque = gerador.nextInt(2) + 1;
-			System.out.println("DADO ATAUQ" + dadoMultiplicadorAtaque);
+			//System.out.println("DADO ATAUQ" + dadoMultiplicadorAtaque);
 			oponente.defender(dadoMultiplicadorAtaque * (ataque + armaEquipada.pegarDano()));
 		}
 		else
 		{
 			int dadoMultiplicadorDefesa = gerador.nextInt(2) + 1;
-			System.out.println("DADO DEFEQ" + dadoMultiplicadorDefesa);
+			//System.out.println("DADO DEFEQ" + dadoMultiplicadorDefesa);
 			this.defender(oponente.pegarAtaque() - dadoMultiplicadorDefesa);
 		}
 

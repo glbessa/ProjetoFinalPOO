@@ -52,8 +52,6 @@ public class Sala
     {
         return saidas.get(direcao);
     }
-    
-
 
     public void inserirPersonagem(Personagem personagem) {
     	personagens.put(personagem.pegarNome(), personagem);
@@ -97,7 +95,5 @@ public class Sala
 		itens.remove(nomeItem);
 		return item;
 	}
-
-
 }
 

@@ -55,7 +55,7 @@ public class PainelDeItensSala extends JPanel
 
 	public void atualizar() 
 	{
-			((DefaultListModel) itens.getModel()).removeAllElements();
+		((DefaultListModel) itens.getModel()).removeAllElements();
 	}
 
 

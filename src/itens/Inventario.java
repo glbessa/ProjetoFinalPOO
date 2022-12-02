@@ -38,6 +38,11 @@ public class Inventario
 		return pesoTotal;
 	}
 
+	public int pegarLimiteDePeso()
+	{
+		return limiteDePeso;
+	}
+
 	public Set<String> pegarNomes()
 	{
 		return itens.keySet();

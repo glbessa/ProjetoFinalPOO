@@ -31,6 +31,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private JButton bUsar;
 	private JButton bTirar;
 	private JButton bSair;
+	private JLabel peso;
 
 	private JList listaDeInventario;
 	private String itemSelecionado;
@@ -40,7 +41,7 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 
 	public void inicializar(Heroi heroi, PainelDoHeroi pHeroi) 
 	{
-        setTitle("Invertário");
+        setTitle("Inventário");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(0,3));
@@ -63,6 +64,8 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		JScrollPane pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
 
+		peso = new JLabel("Peso: " + heroi.pegarMochila().calcularPeso() + "/" + heroi.pegarMochila().pegarLimiteDePeso());
+		painelPrincipal.add(peso);
 
 		painelBotoes = new JPanel();
 		painelBotoes.setLayout(new GridLayout(3,0));
@@ -133,6 +136,8 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		{
 			((DefaultListModel) listaDeInventario.getModel()).addElement(nome);
 		}
+
+		peso.setText("Peso: " + heroi.pegarMochila().calcularPeso() + "/" + heroi.pegarMochila().pegarLimiteDePeso());
 	}
 
 	class ListaDeInventarioSelectionHandler implements ListSelectionListener 

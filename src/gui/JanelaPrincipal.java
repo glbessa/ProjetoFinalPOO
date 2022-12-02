@@ -49,18 +49,18 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 
         heroi = new Heroi("Cristopher", 27, 27, 3, 1, 100);
 
-		heroi.setMochila(new Inventario(10));
+		heroi.setMochila(new Inventario(15));
 					
-		Arma arma = new Arma("Espada", "", 2, 2);
+		Arma arma = new Arma("Espada de madeira", "", 2, 2);
 		heroi.pegarMochila().inserirItem(arma);
 		heroi.equiparArma(arma);
 
-		Defesa escudo = new Defesa("Escudo lv1", "", 2, 10);
+		Defesa escudo = new Defesa("Escudo de papel", "", 2, 8);
 		heroi.pegarMochila().inserirItem(escudo);
 		heroi.equiparDefesa(escudo);
 
-		Defesa escudo2 = new Defesa("Escudo lvl2", "", 2, 20);
-		heroi.pegarMochila().inserirItem(escudo2);
+		//Defesa escudo2 = new Defesa("Escudo lvl2", "", 2, 20);
+		//heroi.pegarMochila().inserirItem(escudo2);
 
         setTitle("Mansão Demoníaca");
         setSize(1366, 768);
@@ -113,7 +113,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		// criando inimigos
         Personagem diabinho = new Vilao("Diabinho", 15, 15, 4, 3);
         Personagem olhoDoMal = new Vilao("Olhão do Mal", 10, 10, 4, 5);
-        Personagem assassino = new Vilao("Assasino", 12, 12, 6, 2);
+        Personagem assassino = new Vilao("Assassino", 12, 12, 6, 2);
         Personagem fantasmaCaolho = new Vilao("Fantasma Caolho", 15, 15, 4, 3);
         Personagem cavaleiro = new Vilao("Cavaleiro Demoníaco", 13, 13, 7, 6);
         Personagem michaelMyers = new Vilao("Michael Myers", 20, 20, 7, 3);
@@ -186,6 +186,8 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 				salaAtual.removerPersonagem(nome);
 				pHeroi.atualizar();
 				painelSala.atualizar();
+				if (nome == "Diabão")
+					voceVenceu();
 			}
 		}
 	}
@@ -297,24 +299,24 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 
 	public void voceMorreu()
 	{
-		setVisible(false);
+		setEnabled(false);
 		JFrame frame = new JFrame();
 		frame.add(new JLabel("Você morreu!"));
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(this);
 		frame.setSize(100, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 	public void voceVenceu()
 	{
-		setVisible(false);
+		setEnabled(false);
 		JFrame frame = new JFrame();
 		frame.add(new JLabel("Você venceu!"));
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(this);
 		frame.setSize(100, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 	@Override

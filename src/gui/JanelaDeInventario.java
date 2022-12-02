@@ -36,14 +36,12 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private String itemSelecionado;
 	private Inventario inventario;
 
-	private JScrollPane pItens;
-
 	public void inicializar(Inventario inventario) 
 	{
         setTitle("Invertário");
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout());
+        setLayout(new GridLayout(2,1));
         
 		this.inventario = inventario;
 
@@ -51,19 +49,14 @@ public class JanelaDeInventario extends JFrame implements ActionListener
         painelPrincipal.setBackground(new Color(255, 255, 255));
         painelPrincipal.setVisible(true);
 		add(painelPrincipal);
-        
-		String[] teste = {"1", "2", "3", "4"};
 
-		listaDeInventario = new JList(teste);
+		listaDeInventario = new JList();
 		listaDeInventario.setModel(new DefaultListModel());
 		listaDeInventario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaDeInventario.setLayoutOrientation(JList.VERTICAL);
 		listaDeInventario.setVisibleRowCount(-1);
 		listaDeInventario.addListSelectionListener(new ListaDeInventarioSelectionHandler());
-		painelPrincipal.add(listaDeInventario);
-
-		
-		pItens = new JScrollPane(listaDeInventario);
+		JScrollPane pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
 
 
@@ -82,9 +75,9 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		bSair.addActionListener(this);
 		painelBotoes.add(bSair);
 		
-		//painelPrincipal.add(painelBotoes);
+		painelPrincipal.add(painelBotoes);
 
-		//atualizar();
+		atualizar();
     }
 
 	@Override
@@ -96,14 +89,15 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 			{
 				
 			}
+			atualizar();
 		}
 		else if (ae.getSource() == bTirar)
 		{
 			if (itemSelecionado != null)
 			{
 				inventario.removerItem(itemSelecionado);
-				atualizar();
 			}
+			atualizar();
 		}
 		else if (ae.getSource() == bSair)
 		{

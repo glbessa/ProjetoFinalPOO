@@ -101,9 +101,11 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         hallwayToBoss.setSaida("north", lobby);
 
         library.setSaida("west", hallwayToLibrary);
-        armorSala.setSaida("south", hallwayToArmorSala);
+        armorSala.setSaida("east", hallwayToArmorSala);
         armorSala.setSaida("south", dungeon);
         dungeon.setSaida("north", armorSala);
+
+		bossRoom.setSaida("west", hallwayToBoss);
 
 		// criando inimigos
         Personagem diabinho = new Vilao("Diabinho", 15, 15, 4, 3);

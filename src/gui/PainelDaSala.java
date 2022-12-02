@@ -144,7 +144,7 @@ public class PainelDaSala extends JPanel {
 	{
 		public void valueChanged(ListSelectionEvent e) 
 		{ 
-			if (inimigos.isSelectionEmpty()) 
+			if (itens.isSelectionEmpty()) 
 			{
 				itemSelecionado = null;
 			} 

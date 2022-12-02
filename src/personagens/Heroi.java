@@ -15,7 +15,6 @@ public class Heroi extends Personagem {
 	public Heroi(String nome, int vida, int vidaMaxima, int ataque, int defesa, int limiteDePeso) {
 		super(nome, vida, vidaMaxima, ataque, defesa);
 		this.temDefesaEquipada = false;
-		this.vidaMaxima = vidaMaxima;
 		this.mochila = new Inventario(limiteDePeso);
 	}
 	
@@ -48,19 +47,11 @@ public class Heroi extends Personagem {
 	{
 		defesaEquipada = defesa;
 	}
-<<<<<<< HEAD
-=======
 
 	public Defesa pegarDefesaEquipada()
 	{
 		return defesaEquipada;
 	}
-	
-	public int pegarVidaMaxima() 
-	{
-		return vidaMaxima;
-	}
->>>>>>> e1d2a71 (alteracoes)
 
 	public void atacar(Personagem oponente)
 	{

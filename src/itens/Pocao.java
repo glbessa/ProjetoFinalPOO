@@ -7,7 +7,7 @@ public class Pocao extends Item
 
 	public Pocao(String nome, String descricao, int peso, int bonusDeVida)
 	{
-		super(nome, descricao, peso);
+		super(nome, descricao, peso, 3);
 		this.bonusDeVida = bonusDeVida;
 		this.usado = false;
 	}
@@ -15,7 +15,10 @@ public class Pocao extends Item
 	public int pegarBonusDeVida()
 	{	
 		if(!usado)
+		{
+			usado = true;
 			return bonusDeVida;
+		}
 		return 0;
 	}
 }

@@ -35,26 +35,30 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 	private JList listaDeInventario;
 	private String itemSelecionado;
 	private Inventario inventario;
+	private Heroi heroi;
+	private PainelDoHeroi pHeroi;
 
-	public void inicializar(Inventario inventario) 
+	public void inicializar(Heroi heroi, PainelDoHeroi pHeroi) 
 	{
         setTitle("Invertário");
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(2,1));
+        setLayout(new GridLayout(0,3));
         
-		this.inventario = inventario;
+		this.heroi = heroi;
+		this.inventario = heroi.pegarMochila();
+		this.pHeroi = pHeroi;
 
         painelPrincipal = new JPanel();
         painelPrincipal.setBackground(new Color(255, 255, 255));
         painelPrincipal.setVisible(true);
-		add(painelPrincipal);
+		setContentPane(painelPrincipal);
 
 		listaDeInventario = new JList();
 		listaDeInventario.setModel(new DefaultListModel());
 		listaDeInventario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaDeInventario.setLayoutOrientation(JList.VERTICAL);
-		listaDeInventario.setVisibleRowCount(-1);
+		//listaDeInventario.setVisibleRowCount(-1);
 		listaDeInventario.addListSelectionListener(new ListaDeInventarioSelectionHandler());
 		JScrollPane pItens = new JScrollPane(listaDeInventario);
 		painelPrincipal.add(pItens);
@@ -87,9 +91,25 @@ public class JanelaDeInventario extends JFrame implements ActionListener
 		{
 			if (itemSelecionado != null)
 			{
-				
+				Item item = inventario.pegarItem(itemSelecionado);
+				if (item.pegarCategoria() == 0)
+					heroi.equiparArma((Arma) item);
+				else if (item.pegarCategoria() == 1)
+					heroi.equiparDefesa((Defesa) item);
+				else if (item.pegarCategoria() == 2)
+				{
+					heroi.recuperarVida(((Comida) item).pegarBonusDeVida());
+					inventario.removerItem(itemSelecionado);
+				}
+				else if (item.pegarCategoria() == 3)
+				{
+					heroi.recuperarVida(((Pocao) item).pegarBonusDeVida());
+					inventario.removerItem(itemSelecionado);
+				}
+				//else if (item.pegarCategoria() == 4)
 			}
 			atualizar();
+			pHeroi.atualizar();
 		}
 		else if (ae.getSource() == bTirar)
 		{

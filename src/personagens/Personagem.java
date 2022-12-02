@@ -21,6 +21,15 @@ public abstract class Personagem
 		this.defesa = defesa;
 	}
 	
+	public void recuperarVida(int vidaExtra)
+	{
+		int novaVida = vida + vidaExtra;
+		if (novaVida > vidaMaxima)
+			vida = vidaMaxima;
+		else
+			vida = novaVida;
+	}
+
 	public String pegarNome() 
 	{
 		return nome;

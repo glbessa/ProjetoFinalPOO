@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 import personagens.Heroi;
 import jogo.Sala;
 
-public class PainelDoHeroi extends JPanel{
-	// Objetos do Jogos
+public class PainelDoHeroi extends JPanel
+{
 	private Heroi heroi;
-	// Componentes da GUI
+
 	private JLabel nome;
 	private JLabel vida;
 	private JLabel labelArma;
@@ -21,7 +21,8 @@ public class PainelDoHeroi extends JPanel{
 	private JLabel labelMoedas;
 	private JLabel titulo;
 
-	public PainelDoHeroi(Heroi heroi) {
+	public PainelDoHeroi(Heroi heroi) 
+	{
 		this.heroi = heroi;
 		
 		setBackground(Color.white);
@@ -46,8 +47,8 @@ public class PainelDoHeroi extends JPanel{
 	{
 		nome.setText("Nome: " + heroi.pegarNome());
 		vida.setText("Vida: " + heroi.pegarVida() + " / " + heroi.pegarVidaMaxima());
-		labelArma.setText("Arma equipada: " + heroi.pegarArmaEquipada().pegarNome() + " - Bônus de ataque: " + heroi.pegarArmaEquipada().pegarDano());
-		labelDefesa.setText("Defesa equipada: " + heroi.pegarDefesaEquipada().pegarNome() + " - Bônus de defesa: " + heroi.pegarDefesaEquipada().pegarDefesa());
+		labelArma.setText("Arma equipada: " + heroi.pegarArmaEquipada().pegarNome() + " - Bônus de ataque: " + heroi.pegarArmaEquipada().pegarDano() + " - Durab.: " + heroi.pegarArmaEquipada().pegarDurabilidade() + "/100");
+		labelDefesa.setText("Defesa equipada: " + heroi.pegarDefesaEquipada().pegarNome() + " - Bônus de defesa: " + heroi.pegarDefesaEquipada().pegarDefesa() + " - Durab.: " + heroi.pegarDefesaEquipada().pegarDurabilidade() + "/100");
 		labelMoedas.setText("Moedas: " + heroi.pegarMochila().pegarMoedas());
 	}
 }

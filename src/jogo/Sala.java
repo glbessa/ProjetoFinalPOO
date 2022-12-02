@@ -91,6 +91,12 @@ public class Sala
         personagens.remove(personagem);
     }
 
+	public Item removerItem(String nomeItem)
+	{
+		Item item = pegarItem(nomeItem);
+		itens.remove(nomeItem);
+		return item;
+	}
 
 
 }

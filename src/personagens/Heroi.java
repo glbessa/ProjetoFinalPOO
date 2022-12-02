@@ -17,7 +17,7 @@ public class Heroi extends Personagem {
 		this.temDefesaEquipada = false;
 		this.mochila = new Inventario(limiteDePeso);
 	}
-	
+
 	public void alimentar() {
 		incrementarVida();
 		incrementarVida();
@@ -79,6 +79,10 @@ public class Heroi extends Personagem {
 
 	public void defender(int dano)
 	{
+		Random gerador = new Random();
+		armaEquipada.desgastar(gerador.nextInt(15));
+		defesaEquipada.desgastar(gerador.nextInt(15));
+
 		if(temDefesaEquipada == true){
 			int danoTotal = dano - (this.defesa + defesaEquipada.pegarDefesa());
 			int vidaRestante = this.vida - danoTotal;

@@ -6,7 +6,7 @@ public class Defesa extends Equipamento
 
 	public Defesa(String nome, String descricao, int peso, int defesa)
 	{
-		super(nome, descricao, peso);
+		super(nome, descricao, peso, 1);
 
 		this.defesa = defesa;
 	}

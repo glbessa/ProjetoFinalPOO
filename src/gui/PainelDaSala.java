@@ -33,6 +33,7 @@ public class PainelDaSala extends JPanel {
 	{
 		this.sala = sala;
 		inimigoSelecionado = null;
+		itemSelecionado = null;
 		
 		setBackground(Color.white);
 		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
@@ -51,7 +52,7 @@ public class PainelDaSala extends JPanel {
 		inimigos.setModel(new DefaultListModel());
 		inimigos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		inimigos.setLayoutOrientation(JList.VERTICAL);
-		inimigos.setVisibleRowCount(-1);
+		//inimigos.setVisibleRowCount(-1);
 		inimigos.addListSelectionListener(new InimigosSelectionHandler());
 		JScrollPane pInimigos = new JScrollPane(inimigos);
 		painelListas.add(pInimigos);
@@ -61,7 +62,7 @@ public class PainelDaSala extends JPanel {
 		itens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		itens.setLayoutOrientation(JList.VERTICAL);
 		itens.setVisibleRowCount(-1);
-		inimigos.addListSelectionListener(new ItensSelectionHandler());
+		itens.addListSelectionListener(new ItensSelectionHandler());
 		JScrollPane pItens = new JScrollPane(itens);
 		painelListas.add(pItens);
 		
@@ -92,8 +93,6 @@ public class PainelDaSala extends JPanel {
 		{
 			((DefaultListModel) itens.getModel()).addElement(nome);
 		}
-
-		
 	}
 
 

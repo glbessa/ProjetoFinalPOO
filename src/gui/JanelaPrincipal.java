@@ -49,14 +49,18 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 
         heroi = new Heroi("Cristopher", 27, 27, 3, 1, 100);
 
-			heroi.setMochila(new Inventario(10));
+		heroi.setMochila(new Inventario(10));
 					
-			Arma arma = new Arma("Espada", "", 2, 2);
-			heroi.pegarMochila().inserirItem(arma);
-			heroi.equiparArma(arma);
+		Arma arma = new Arma("Espada", "", 2, 2);
+		heroi.pegarMochila().inserirItem(arma);
+		heroi.equiparArma(arma);
 
 		Defesa escudo = new Defesa("Escudo lv1", "", 2, 10);
 		heroi.pegarMochila().inserirItem(escudo);
+		heroi.equiparDefesa(escudo);
+
+		Defesa escudo2 = new Defesa("Escudo lvl2", "", 2, 20);
+		heroi.pegarMochila().inserirItem(escudo2);
 
         setTitle("Mansão Demoníaca");
         setSize(1366, 768);
@@ -65,7 +69,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
   
         inicializar();
-        
     }
 
     private void criarSalas()
@@ -135,26 +138,26 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         bossRoom.inserirPersonagem(capanga2);
         bossRoom.inserirPersonagem(capanga3);
 				
-				MarteloDeConserto martelo = new MarteloDeConserto("Martelo de Conserto", "Use para consertar um equipamento", 2);
-				Arma espadaHallway = new Arma("Espada Lendária", "A espada mais forte de todas", 3, 9);
-				Arma espadaEntranceRoom = new Arma("Espada de Aço", "Uma espada leve porém poderosa", 3, 4);
-				Arma machadoArmorRoom = new Arma("Machado Medieval", "Machado usado por cavaleiros medievais", 5, 7);
-				Defesa escudoEntranceRoom = new Defesa("Escudo de Madeira", "Escudo leve", 4, 3);
-				Defesa escudoArmorRoom = new Defesa("Escudo Dourado", "Escudo muito resistente", 5, 3);
-				Pocao pocaoLobby = new Pocao("Poção de vida", "Tome para recuperar sua vida", 1, 8);
-				Comida pizzaLibrary = new Comida("Pizza", "Uma pizza para recuperar sua vida", 1, 4);
-				Comida uvaHallway = new Comida("Uvas", "Um cacho de uvas para recuperar sua vida", 1, 4);
+		MarteloDeConserto martelo = new MarteloDeConserto("Martelo de Conserto", "Use para consertar um equipamento", 2);
+		Arma espadaHallway = new Arma("Espada Lendária", "A espada mais forte de todas", 3, 9);
+		Arma espadaEntranceRoom = new Arma("Espada de Aço", "Uma espada leve porém poderosa", 3, 4);
+		Arma machadoArmorRoom = new Arma("Machado Medieval", "Machado usado por cavaleiros medievais", 5, 7);
+		Defesa escudoEntranceRoom = new Defesa("Escudo de Madeira", "Escudo leve", 4, 3);
+		Defesa escudoArmorRoom = new Defesa("Escudo Dourado", "Escudo muito resistente", 5, 3);
+		Pocao pocaoLobby = new Pocao("Poção de vida", "Tome para recuperar sua vida", 1, 8);
+		Comida pizzaLibrary = new Comida("Pizza", "Uma pizza para recuperar sua vida", 1, 4);
+		Comida uvaHallway = new Comida("Uvas", "Um cacho de uvas para recuperar sua vida", 1, 4);
 
-				mainEntrance.inserirItem(espadaEntranceRoom);
-				mainEntrance.inserirItem(escudoEntranceRoom);
-				lobby.inserirItem(pocaoLobby);
-				library.inserirItem(pizzaLibrary);
-				armorSala.inserirItem(machadoArmorRoom);
-				armorSala.inserirItem(escudoArmorRoom);
-				hallwayToBoss.inserirItem(uvaHallway);
-				hallwayToBoss.inserirItem(espadaHallway);
+		mainEntrance.inserirItem(espadaEntranceRoom);
+		mainEntrance.inserirItem(escudoEntranceRoom);
+		lobby.inserirItem(pocaoLobby);
+		library.inserirItem(pizzaLibrary);
+		armorSala.inserirItem(machadoArmorRoom);
+		armorSala.inserirItem(escudoArmorRoom);
+		hallwayToBoss.inserirItem(uvaHallway);
+		hallwayToBoss.inserirItem(espadaHallway);
 			
-        salaAtual = outside;  // Começa o jogo fora da mansão
+        salaAtual = outside;
     }
 
 	private void irPara(String direcao)
@@ -292,28 +295,51 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		pHeroi.atualizar();
     }
 
+	public void voceMorreu()
+	{
+		setVisible(false);
+		JFrame frame = new JFrame();
+		frame.add(new JLabel("Você morreu!"));
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(this);
+		frame.setSize(100, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public void voceVenceu()
+	{
+		setVisible(false);
+		JFrame frame = new JFrame();
+		frame.add(new JLabel("Você venceu!"));
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(this);
+		frame.setSize(100, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent ae) 
 	{	
 		if (ae.getSource() == bPegar) 
 		{
-			
+			Item item = salaAtual.pegarItem(painelSala.pegarItemSelecionado());
+			boolean foiParaMoc = heroi.pegarMochila().inserirItem(item);
+			if (foiParaMoc)
+				salaAtual.removerItem(painelSala.pegarItemSelecionado());
+			painelSala.atualizar();
 		}
 		else if (ae.getSource() == bAbrirInventario)
 		{
 			EventQueue.invokeLater(new Runnable() {
 				@Override
-				public void run() {
+				public void run() 
+				{
 					JanelaDeInventario ji = new JanelaDeInventario();
 					ji.setVisible(true);
-					ji.inicializar(heroi.pegarMochila());
+					ji.inicializar(heroi, pHeroi);
 				}
 			});
 		}
-		else if (ae.getSource() == bSoltar) 
-		{
-			
-		} 
 		else if (ae.getSource() == bNorte) 
 		{
 			irPara("north");
@@ -333,6 +359,8 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		else if (ae.getSource() == bAtacar) 
 		{
 			atacarPersonagem(painelSala.pegarInimigoSelecionado());
+			if (heroi.estaMorto())
+				voceMorreu();
 		}
 		
 	}

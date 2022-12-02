@@ -43,11 +43,13 @@ public class Inventario
 		return itens.keySet();
 	}
 	
-	public void inserirItem(Item item) {
+	public boolean inserirItem(Item item) {
 		if (calcularPeso() + item.pegarPeso() <= limiteDePeso)
+		{
 			itens.put(item.pegarNome(), item);
-		//else
-			//throw new Exception("O inventario nao pode carregar mais itens na mochila!");
+			return true;
+		}
+		return false;
 	}
 
 	public Item pegarItem(String nome)
@@ -59,8 +61,6 @@ public class Inventario
 		Item item = pegarItem(nome);
 		if (item != null)
 			itens.remove(nome);
-		//else
-			//throw new Exception("Item " + nome + " nao encontrado!");
 		return item;
 	}
 }

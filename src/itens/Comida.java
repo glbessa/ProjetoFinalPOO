@@ -7,15 +7,18 @@ public class Comida extends Item
 
 	public Comida(String nome, String descricao, int peso, int bonusDeVida)
 	{
-		super(nome, descricao, peso);
+		super(nome, descricao, peso, 2);
 		this.bonusDeVida = bonusDeVida;
 		this.usado = false;
 	}
 
 	public int pegarBonusDeVida()
 	{
-		if (!usado)
+		if(!usado)
+		{
+			usado = true;
 			return bonusDeVida;
+		}
 		return 0;
 	}
 }

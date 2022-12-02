@@ -92,7 +92,10 @@ public class PainelDaSala extends JPanel {
 		{
 			((DefaultListModel) itens.getModel()).addElement(nome);
 		}
+
+		
 	}
+
 
 	public void atualizarInimigo() 
 	{
@@ -104,6 +107,10 @@ public class PainelDaSala extends JPanel {
 		{
 			pInimigo.atualizar(sala.pegarPersonagem(inimigoSelecionado));
 		}
+	}
+
+	public void inimigoMorreu(){
+		((DefaultListModel) inimigos.getModel()).removeElement(inimigoSelecionado);
 	}
 
 	public String pegarInimigoSelecionado() 

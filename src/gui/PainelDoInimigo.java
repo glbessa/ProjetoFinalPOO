@@ -11,16 +11,19 @@ import personagens.Heroi;
 import personagens.Personagem;
 import personagens.Vilao;
 
+import java.awt.*;
+
 public class PainelDoInimigo extends JPanel{
 	private JLabel nome;
 	private JLabel vida;
 	private JLabel titulo;
 
 	public PainelDoInimigo() {
-		setBackground(Color.white);
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setBackground(new Color(255, 204, 203));
+		setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+		setLayout(new GridLayout(0, 1));
 		// Label com o nome do Heroi
-		titulo = new JLabel("==Inimigo==");
+		titulo = new JLabel("=========================================Painel do Inimigo============================================");
 		nome = new JLabel("Nome: ");
 		vida = new JLabel("Vida: ");
 		add(titulo);

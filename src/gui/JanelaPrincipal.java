@@ -47,13 +47,13 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
     {
         criarSalas();
 
-        heroi = new Heroi("Cristopher", 20, 20, 10, 100, 100);
+        heroi = new Heroi("Cristopher", 27, 27, 3, 1, 100);
 
-		heroi.setMochila(new Inventario(10));
-        
-		Arma arma = new Arma("Espada", "", 2, 10);
-		heroi.pegarMochila().inserirItem(arma);
-		heroi.equiparArma(arma);
+			heroi.setMochila(new Inventario(10));
+					
+			Arma arma = new Arma("Espada", "", 2, 2);
+			heroi.pegarMochila().inserirItem(arma);
+			heroi.equiparArma(arma);
 
         setTitle("Mansão Demoníaca");
         setSize(1366, 768);
@@ -98,21 +98,21 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         hallwayToBoss.setSaida("north", lobby);
 
         library.setSaida("west", hallwayToLibrary);
-        armorSala.setSaida("east", hallwayToArmorSala);
+        armorSala.setSaida("south", hallwayToArmorSala);
         armorSala.setSaida("south", dungeon);
         dungeon.setSaida("north", armorSala);
 
 		// criando inimigos
-        Personagem diabinho = new Vilao("Diabinho", 2, 2, 4, 3);
-        Personagem olhoDoMal = new Vilao("Olhão do Mal", 2, 2, 4, 3);
-        Personagem assassino = new Vilao("Assasino", 2, 2, 4, 3);
-        Personagem fantasmaCaolho = new Vilao("Fantasma Caolho", 2, 2, 4, 3);
-        Personagem cavaleiro = new Vilao("Cavaleiro Demoníaco", 2, 2, 4, 3);
-        Personagem michaelMyers = new Vilao("Michael Myers", 2, 2, 4, 3);
-        Personagem capanga1 = new Vilao("Diabinho Capanga 1", 2, 2, 4, 3);
-        Personagem capanga2 = new Vilao("Diabinho Capanga 2", 2, 2, 4, 3);
-        Personagem capanga3 = new Vilao("Diabinho Capanga 3", 2, 2, 4, 3);
-        Personagem diabao = new Vilao("Diabão", 2, 2, 4, 3);
+        Personagem diabinho = new Vilao("Diabinho", 15, 15, 4, 3);
+        Personagem olhoDoMal = new Vilao("Olhão do Mal", 10, 10, 4, 5);
+        Personagem assassino = new Vilao("Assasino", 12, 12, 6, 2);
+        Personagem fantasmaCaolho = new Vilao("Fantasma Caolho", 15, 15, 4, 3);
+        Personagem cavaleiro = new Vilao("Cavaleiro Demoníaco", 13, 13, 7, 6);
+        Personagem michaelMyers = new Vilao("Michael Myers", 20, 20, 7, 3);
+        Personagem capanga1 = new Vilao("Diabinho Capanga 1", 6, 6, 2, 3);
+        Personagem capanga2 = new Vilao("Diabinho Capanga 2", 6, 6, 2, 3);
+        Personagem capanga3 = new Vilao("Diabinho Capanga 3", 6, 6, 2, 3);
+        Personagem diabao = new Vilao("Diabão", 40, 40, 4, 3);
 
         mainEntrance.inserirPersonagem(diabinho);
 
@@ -129,15 +129,16 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
         bossRoom.inserirPersonagem(capanga1);
         bossRoom.inserirPersonagem(capanga2);
         bossRoom.inserirPersonagem(capanga3);
-
+				
+				MarteloDeConserto martelo = new MarteloDeConserto("Martelo de Conserto", "Use para consertar um equipamento", 2);
+				Arma espadaHallway = new Arma("Espada Lendária", "A espada mais forte de todas", 3, 9);
 				Arma espadaEntranceRoom = new Arma("Espada de Aço", "Uma espada leve porém poderosa", 3, 4);
-				Defesa escudoEntranceRoom = new Defesa("Escudo de Madeira", "Escudo leve", 4, 3);
 				Arma machadoArmorRoom = new Arma("Machado Medieval", "Machado usado por cavaleiros medievais", 5, 7);
+				Defesa escudoEntranceRoom = new Defesa("Escudo de Madeira", "Escudo leve", 4, 3);
 				Defesa escudoArmorRoom = new Defesa("Escudo Dourado", "Escudo muito resistente", 5, 3);
 				Pocao pocaoLobby = new Pocao("Poção de vida", "Tome para recuperar sua vida", 1, 8);
 				Comida pizzaLibrary = new Comida("Pizza", "Uma pizza para recuperar sua vida", 1, 4);
 				Comida uvaHallway = new Comida("Uvas", "Um cacho de uvas para recuperar sua vida", 1, 4);
-				Arma espadaHallway = new Arma("Espada Lendária", "A espada mais forte de todas", 3, 9);
 
 				mainEntrance.inserirItem(espadaEntranceRoom);
 				mainEntrance.inserirItem(escudoEntranceRoom);
@@ -148,13 +149,6 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 				hallwayToBoss.inserirItem(uvaHallway);
 				hallwayToBoss.inserirItem(espadaHallway);
 			
-
-		// criando itens
-		//...
-
-		// adicionando os itens as salas
-		//...
-
         salaAtual = outside;  // Começa o jogo fora da mansão
     }
 
@@ -177,6 +171,14 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 			heroi.atacar(oponente);
 			pHeroi.atualizar();
 			painelSala.atualizarInimigo();
+			System.out.println(oponente.pegarVida());
+			System.out.println(heroi.pegarVida());
+
+			if(oponente.pegarVida() == 0){
+				salaAtual.removerPersonagem(nome);
+				pHeroi.atualizar();
+				painelSala.atualizar();
+			}
 		}
 	}
     
@@ -211,6 +213,9 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 
         painelSala = new PainelDaSala(salaAtual);
         painelDir.add(painelSala);
+
+				// painelInimigo = new PainelDoInimigo();
+				// painelDir.add(pInimigo);
 
         pHeroi = new PainelDoHeroi(heroi);
         painelDir.add(pHeroi);
@@ -316,7 +321,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener{
 		} 
 		else if (ae.getSource() == bLeste) 
 		{
-			irPara("este");
+			irPara("east");
 		} 
 		else if (ae.getSource() == bOeste) 
 		{

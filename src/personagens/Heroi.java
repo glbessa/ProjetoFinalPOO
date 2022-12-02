@@ -11,9 +11,11 @@ public class Heroi extends Personagem {
 	private Defesa defesaEquipada;
 	private int vidaMaxima;
 	private Inventario mochila;
+	private Boolean temDefesaEquipada;
 	
 	public Heroi(String nome, int vida, int vidaMaxima, int ataque, int defesa, int limiteDePeso) {
 		super(nome, vida, vidaMaxima, ataque, defesa);
+		this.temDefesaEquipada = false;
 		this.vidaMaxima = vidaMaxima;
 		this.mochila = new Inventario(limiteDePeso);
 	}
@@ -53,24 +55,39 @@ public class Heroi extends Personagem {
 		Random gerador = new Random();
 		int dado1 = gerador.nextInt(10);
 		int dado2 = gerador.nextInt(10);
+		
 
 		if (dado1 > dado2)
 		{
-			oponente.defender((dado1) * (ataque + armaEquipada.pegarDano()));
+			int dadoMultiplicadorAtaque = gerador.nextInt(2) + 1;
+			System.out.println("DADO ATAUQ" + dadoMultiplicadorAtaque);
+			oponente.defender(dadoMultiplicadorAtaque * (ataque + armaEquipada.pegarDano()));
 		}
 		else
 		{
-			this.defender((dado2) * oponente.pegarAtaque());
+			int dadoMultiplicadorDefesa = gerador.nextInt(2) + 1;
+			System.out.println("DADO DEFEQ" + dadoMultiplicadorDefesa);
+			this.defender(oponente.pegarAtaque() - dadoMultiplicadorDefesa);
 		}
 	}
 
 	public void defender(int dano)
 	{
-		int danoTotal = dano - (this.defesa + defesaEquipada.pegarDefesa());
-		int vidaRestante = this.vida - danoTotal;
-		if (danoTotal > 0 && vidaRestante >= 0)
-			vida -= danoTotal;
-		else if (danoTotal > 0)
-			vida = 0;
+		if(temDefesaEquipada == true){
+			int danoTotal = dano - (this.defesa + defesaEquipada.pegarDefesa());
+			int vidaRestante = this.vida - danoTotal;
+			if (danoTotal > 0 && vidaRestante >= 0)
+				vida -= danoTotal;
+			else if (danoTotal > 0)
+				vida = 0;
+		} else {
+			int danoTotal = dano - this.defesa;
+			int vidaRestante = this.vida - danoTotal;
+			if (danoTotal > 0 && vidaRestante >= 0)
+				vida -= danoTotal;
+			else if (danoTotal > 0)
+				vida = 0;
+		}
+		
 	}
 }

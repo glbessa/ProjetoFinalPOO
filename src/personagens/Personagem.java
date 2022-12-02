@@ -2,6 +2,8 @@ package personagens;
 
 import java.util.Random;
 
+import gui.PainelDaSala;
+
 public abstract class Personagem 
 {
 	private String nome;
@@ -86,7 +88,8 @@ public abstract class Personagem
 	{
 		if (vida > 0)
 			vida--;
-		//if (vida == 0)
-			//throw new Exception("\n# " + nome + " esta morto!\n");
+		if (vida == 0){
+			// removerPersonagem();
+		}
 	}
 }

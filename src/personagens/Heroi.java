@@ -9,7 +9,6 @@ import itens.*;
 public class Heroi extends Personagem {
 	private Arma armaEquipada;
 	private Defesa defesaEquipada;
-	private int vidaMaxima;
 	private Inventario mochila;
 	private Boolean temDefesaEquipada;
 	
@@ -44,11 +43,6 @@ public class Heroi extends Personagem {
 	{
 		defesaEquipada = defesa;
 	}
-	
-	public int pegarVidaMaxima() 
-	{
-		return vidaMaxima;
-	}
 
 	public void atacar(Personagem oponente)
 	{
@@ -69,6 +63,9 @@ public class Heroi extends Personagem {
 			System.out.println("DADO DEFEQ" + dadoMultiplicadorDefesa);
 			this.defender(oponente.pegarAtaque() - dadoMultiplicadorDefesa);
 		}
+
+		if (oponente.estaMorto())
+			mochila.adicionarMoedas(gerador.nextInt(500));
 	}
 
 	public void defender(int dano)
